@@ -454,8 +454,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#trueim-genes">3.2. Imágenes</a></li>
 <li><a href="#trueejemplo-de-contenedor-para-aplicaciones-web-en-php">3.3. Ejemplo de contenedor para aplicaciones web en PHP</a></li>
 <li><a href="#trueejemplo-de-contenedor-con-volumen-externo">3.4. Ejemplo de contenedor con volumen externo</a></li>
-<li><a href="#true-code-push-code-y-code-pull-code-de-im-genes">3.5. <code>push</code> y <code>pull</code> de imágenes</a></li>
-<li><a href="#truecomandos-de-im-genes">3.6. Comandos de imágenes</a></li>
+<li><a href="#truedescarga-y-subida-de-im-genes-a-docker-hub">3.5. Descarga y subida de imágenes a Docker Hub</a></li>
+<li><a href="#trueresumen-de-comandos-b-sicos-para-im-genes">3.6. Resumen de comandos básicos para imágenes</a></li>
 </ul>
 </li>
 <li><a href="#trueaplicaciones-con-varios-contenedores">4. Aplicaciones con varios contenedores</a>
@@ -472,6 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#truedocker-swarm">6.3. Docker Swarm</a></li>
 <li><a href="#trueescalado-de-la-aplicaci-n">6.4. Escalado de la aplicación</a></li>
 <li><a href="#trueadministraci-n-de-docker-con-em-portainer-em">6.5. Administración de Docker con <em>Portainer</em></a></li>
+<li><a href="#trueresumen-de-los-comandos-para-em-swarms-em">6.6. Resumen de los comandos para <em>swarms</em></a></li>
 </ul>
 </li>
 <li><a href="#truedocker-machine">7. Docker machine</a>
@@ -654,7 +655,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="trueversi-n-y-primer-contenedor"><a class="anchor" href="#trueversi-n-y-primer-contenedor"></a>2.3. Versión y primer contenedor</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker --version
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker --version
 Docker version 18.03.1-ce, build 9ee9f40
 
 $ docker run hello-world
@@ -674,13 +675,13 @@ This message shows that your installation appears to be working correctly.
 <h3 id="truecrear-un-contenedor-apache"><a class="anchor" href="#truecrear-un-contenedor-apache"></a>2.4. Crear un contenedor Apache</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker run -d -p 82:80 httpd</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 82:80 httpd</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Descarga una imagen si no existe localmente, lanza un contenedor y asocia el puerto 82 del host al puerto 80 del contenedor&lt;/li&gt;</p>
+<p>Descarga una imagen si no existe localmente, lanza un contenedor y asocia el puerto 82 del host al puerto 80 del contenedor</p>
 </li>
 <li>
 <p><code>-d</code> lanza el contenedor en modo <em>dettached</em></p>
@@ -734,28 +735,20 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago      Up 11 minutes       0.0.0.0:82-&gt;80/tcp       upbeat_stonebraker</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Detener el contenedor</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="truedetener-el-contenedor"><a class="anchor" href="#truedetener-el-contenedor"></a>2.6.3. Detener el contenedor</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker stop d2f73e6acd51</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stop d2f73e6acd51</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Al hacer <code>docker ps</code> no se muestran los contenedores que estén detenidos.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Mostrar todos los contenedores, también los detenidos.</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="truemostrar-todos-los-contenedores-tambi-n-los-detenidos"><a class="anchor" href="#truemostrar-todos-los-contenedores-tambi-n-los-detenidos"></a>2.6.4. Mostrar todos los contenedores, también los detenidos.</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps -a
@@ -777,13 +770,9 @@ d2f73e6acd51        httpd               "httpd-foreground"       20 minutes ago 
 </tr>
 </table>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Reanudar un contenedor</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="truereanudar-un-contenedor"><a class="anchor" href="#truereanudar-un-contenedor"></a>2.6.5. Reanudar un contenedor</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker start d2f73e6acd51</code></pre>
@@ -799,13 +788,9 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago         Up 10 seconds       0.0.0.0:82-&gt;80/tcp       upbeat_stonebraker</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Detener todos los contenedores en ejecución</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="truedetener-todos-los-contenedores-en-ejecuci-n"><a class="anchor" href="#truedetener-todos-los-contenedores-en-ejecuci-n"></a>2.6.6. Detener todos los contenedores en ejecución</h4>
 <div class="paragraph">
 <p>Primero obtenenemos los identificadores de los contenedores en ejecución con <code>docker ps -q</code>. Ese comando lo podemos encerrar entre apóstrofes y pasar su resultado a otro comando en la misma línea.</p>
 </div>
@@ -814,25 +799,17 @@ d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago    
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stop `docker ps -q`</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Iniciar una lista de contenedores</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="trueiniciar-una-lista-de-contenedores"><a class="anchor" href="#trueiniciar-una-lista-de-contenedores"></a>2.6.7. Iniciar una lista de contenedores</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker start d2f73e6acd51 9811efbf6e45 178c2d03f2e7</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Abrir un terminal en un contenedor</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="trueabrir-un-terminal-en-un-contenedor"><a class="anchor" href="#trueabrir-un-terminal-en-un-contenedor"></a>2.6.8. Abrir un terminal en un contenedor</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker exec -it d2f73e6acd51 bash
@@ -842,13 +819,9 @@ root@d2f73e6acd51:/usr/local/apache2#</code></pre>
 <div class="paragraph">
 <p>Se inicia una sesión como <code>root</code> en el contenedor. En la terminal del contenedor podemos ejecutar comandos del sistema operativo (<code>ls, df -h, cat /proc/cpuinfo, &#8230;&#8203;</code>). La cantidad y el tipo de comandos dependerá de la imagen usada para crear el contenedor.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Copia de datos</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="truecopia-de-datos"><a class="anchor" href="#truecopia-de-datos"></a>2.6.9. Copia de datos</h4>
 <div class="paragraph">
 <p>El almacenamiento en un contenedor no es persistente. Se eliminan los datos escritos en él tras su eliminación.</p>
 </div>
@@ -885,13 +858,9 @@ docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></pre>
 </div>
 <div class="title">Figure 5. Cambio de página de inicio</div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Eliminación de un contenedor</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="trueeliminaci-n-de-un-contenedor"><a class="anchor" href="#trueeliminaci-n-de-un-contenedor"></a>2.6.10. Eliminación de un contenedor</h4>
 <div class="paragraph">
 <p>Primero paramos el contenedor y luego lo eliminamos con <code>docker rm</code></p>
 </div>
@@ -907,18 +876,6 @@ $ docker rm d2f73e6acd51</code></pre>
 <div class="paragraph">
 <p><code>$ docker rm -f &lt;id&gt;</code></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Eliminación de todos los contenedores creados a partir de una imagen</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker rm -f `docker ps -a | grep "wordpress" | awk '{print $1}'`</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>Al crear un nuevo contenedor a partir de la imagen <code>httpd</code> comprobamos que la página de inicio modificada anteriormente se eliminó junto al contenedor eliminado.</p>
 </div>
@@ -926,6 +883,25 @@ $ docker rm d2f73e6acd51</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 82:80 httpd</code></pre>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Eliminación de todos los contenedores creados a partir de una imagen</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker rm -f `docker ps -a | grep "wordpress" | awk '{print $1}'`</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1092,26 +1068,17 @@ EXPOSE 80</code></pre>
 ?&gt;</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Construcción de la imagen.</p>
-</li>
-</ul>
-</div>
+<div class="sect3">
+<h4 id="trueconstrucci-n-de-la-imagen"><a class="anchor" href="#trueconstrucci-n-de-la-imagen"></a>3.3.1. Construcción de la imagen.</h4>
 <div class="paragraph">
 <p><code>$ docker build -t pruebaphp .</code></p>
 </div>
 <div class="paragraph">
 <p>Con <code>-t</code> definimos una etiqueta o nombre de la imagen. Al construir la imagen pasa a nuestro registro.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Listado de imágenes locales</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="truelistado-de-im-genes-locales"><a class="anchor" href="#truelistado-de-im-genes-locales"></a>3.3.2. Listado de imágenes locales</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker image ls
@@ -1119,18 +1086,15 @@ REPOSITORY             TAG                 IMAGE ID            CREATED          
 pruebaphp              latest              152781e32617        14 hours ago        245MB</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Creación de un contenedor a partir de la imagen</p>
-</li>
-</ul>
 </div>
+<div class="sect3">
+<h4 id="truecreaci-n-de-un-contenedor-a-partir-de-la-imagen"><a class="anchor" href="#truecreaci-n-de-un-contenedor-a-partir-de-la-imagen"></a>3.3.3. Creación de un contenedor a partir de la imagen</h4>
 <div class="paragraph">
 <p><code>$ docker run -d -p 83:80 pruebaphp</code></p>
 </div>
 <div class="paragraph">
 <p>Un posible inconveniente que podemos encontrar en este ejemplo es que la aplicación va incluida en la propia imagen, por lo que para actualizar la aplicación deberemos crear una nueva imagen, y después crear un nuevo contenedor a partir de ella desechando el contenedor anterior.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1165,7 +1129,7 @@ EXPOSE 80</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh" data-lang="sh">$ docker run -d -p 83:80 -v=/Users/manolo/Documents/Desarrollo/SeminarioDocker/phpsimple/html:/var/www/html pruebaphp</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 83:80 -v=/Users/manolo/Documents/Desarrollo/SeminarioDocker/phpsimple/html:/var/www/html pruebaphp</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1173,12 +1137,12 @@ EXPOSE 80</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh" data-lang="sh">$ docker run -d -p 83:80 -v=`pwd`/html:/var/www/html pruebaphp</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 83:80 -v=`pwd`/html:/var/www/html pruebaphp</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="true-code-push-code-y-code-pull-code-de-im-genes"><a class="anchor" href="#true-code-push-code-y-code-pull-code-de-im-genes"></a>3.5. <code>push</code> y <code>pull</code> de imágenes</h3>
+<h3 id="truedescarga-y-subida-de-im-genes-a-docker-hub"><a class="anchor" href="#truedescarga-y-subida-de-im-genes-a-docker-hub"></a>3.5. Descarga y subida de imágenes a Docker Hub</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1224,7 +1188,7 @@ $ docker run -d -p 80:80 --name my_wordpress wordpress</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="truecomandos-de-im-genes"><a class="anchor" href="#truecomandos-de-im-genes"></a>3.6. Comandos de imágenes</h3>
+<h3 id="trueresumen-de-comandos-b-sicos-para-im-genes"><a class="anchor" href="#trueresumen-de-comandos-b-sicos-para-im-genes"></a>3.6. Resumen de comandos básicos para imágenes</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker login
@@ -1343,6 +1307,12 @@ services:
 <p><code>init.sql</code> [Descargar init.sql](<a href="https://gist.githubusercontent.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f/raw/448b00c44d7102d66077a393dad555585862f923/init.sql" class="bare">https://gist.githubusercontent.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f/raw/448b00c44d7102d66077a393dad555585862f923/init.sql</a>)</p>
 </div>
 <script src="https://gist.github.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f.js"></script>
+<div class="imageblock">
+<div class="content">
+<img src="./images/CustomerCatalog.png" alt="CustomerCatalog.png">
+</div>
+<div class="title">Figure 6. Aplicación web PHP que muestra listado de clientes almacenados en MySQL</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1517,13 +1487,13 @@ networks:
 <div class="content">
 <img src="./images/Balanceador.png" alt="Balanceador.png">
 </div>
-<div class="title">Figure 6. Aplicación mostrando el número de contenedor</div>
+<div class="title">Figure 7. Aplicación mostrando el número de contenedor</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="./images/Visualizer.png" alt="Visualizer.png">
 </div>
-<div class="title">Figure 7. El visualizador</div>
+<div class="title">Figure 8. El visualizador</div>
 </div>
 <div class="paragraph">
 <p>Tenemos varios comandos para conocer el estado del <code>stack</code> creado.</p>
@@ -1662,6 +1632,20 @@ $ docker stack deploy -c docker-compose.yml portainer</code></pre>
 <div class="imageblock">
 <div class="content">
 <img src="./images/Portainer.png" alt="Portainer.png">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trueresumen-de-los-comandos-para-em-swarms-em"><a class="anchor" href="#trueresumen-de-los-comandos-para-em-swarms-em"></a>6.6. Resumen de los comandos para <em>swarms</em></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker swarm init             Inicialización de swarm y del nodo manager
+$ docker stack deploy -c docker-compose.yml &lt;stack&gt; Despliegue de stack
+$ docker stack ls               Lista de stacks y cantidad de servicios que tiene
+$ docker service ls             Listado de servicios y estado de sus réplicas
+$ docker stack ps &lt;stack&gt;       Listado de las tareas del stack
+$ docker stack rm &lt;stack&gt;       Eliminación del stack
+$ docker swarm leave --force    Salida de un nodo del swarm</code></pre>
 </div>
 </div>
 </div>
@@ -1959,7 +1943,7 @@ export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-04 19:05:39 CEST
+Last updated 2018-06-04 20:30:43 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

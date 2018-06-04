@@ -523,6 +523,9 @@ services:
 <script src="https://gist.github.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f.js"></script>
 ++++
 
+.Aplicación web PHP que muestra listado de clientes almacenados en MySQL
+image::./CustomerCatalog.png[]
+
 ## Escalado de aplicaciones con Docker Swarm
 
 En aplicaciones distribuidas y con gran demanda podemos replicar contenedores en un servicio. Llegado el caso, necesitamos indicar la cantidad de contenedores que están ejecutando un servicio. También, ajustaremos la cantidad del recursos del host que se dedican a la ejecución de las réplicas. Un balanceador de carga se encargará de ir alternando los contenedores a los que se envían las peticiones.
