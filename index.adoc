@@ -1,0 +1,957 @@
+////
+NO CAMBIAR!!
+Codificación, idioma, tabla de contenidos, tipo de documento
+////
+:encoding: utf-8
+:lang: es
+:toc: right
+:toc-title: Tabla de contenidos
+:doctype: book
+:imagesdir: ./images
+
+
+
+
+////
+Nombre y título del trabajo
+////
+# Docker. Una nueva forma de ejecutar y desarrollar aplicaciones
+Cloud-DI Team - Departamento de Informática. UAL
+
+image::di.png[]
+
+// NO CAMBIAR!! (Entrar en modo no numerado de apartados)
+:numbered!: 
+
+
+[abstract]
+== Resumen
+////
+COLOCA A CONTINUACION EL RESUMEN
+////
+$$$$
+
+
+////
+COLOCA A CONTINUACION LOS OBJETIVOS
+////
+.Objetivos
+* $$$
+
+
+// Entrar en modo numerado de apartados
+:numbered:
+
+## Conceptos básicos
+
+### Qué es Docker
+
+* Docker es una plataforma para que desarrolladores y administradores puedan desarrollar, desplegar y ejecutar aplicaciones en un entorno aislado denominado contenedor.
+* Docker permite separar las aplicaciones de la infraestructura acelerando el proceso de entrega de software a producción.
+
+### Docker vs Máquinas virtuales
+
+.Docker vs Máquinas virtuales
+image::DockerVsMV.png[]
+
+* Una máquina virtual proporciona un entorno con más recursos de los que necesitan la mayoría de las aplicaciones
+* Mayor número de contenedores que de MV en el mismo hardware.
+* Los contenedores se pueden ejecutar en hosts que sean máquinas virtuales.
+
+### Ventajas 
+
+- Ligeros: Los contenedores comparten el kernel del host.
+- Intercambiables: Depliegue de actualizaciones en caliente.
+- Portables: Build local y ejecución en cualquier lugar.
+- Escalables: Aumento y distribución automática de réplicas de contenedores.
+- Apilables: Aumento del stack de servicios en caliente.
+	
+### Contenedores e imágenes
+
+- Un contenedor se lanza ejecutando una imagen.
+- Una imagen es una plantilla con las instrucciones de creación de un contenedor Docker:
+    - Código
+    - Runtime
+    - Librerías
+    - Variables de entorno
+    - Archivos de configuración
+
+## Un ejemplo sencillo
+
+### Antes de nada
+
+#### Instalación: 
+
+[https://docs.docker.com/install/#desktop](https://docs.docker.com/install/#desktop)
+
+Obtenemos: 
+
+- Daemon de docker
+- Cliente de docker
+- Docker compose
+
+#### Crear cuenta en Docker Hub
+
+Docker Hub es un registro público de imágenes (Lugar donde se almacenan imágenes): [<a href = "https://hub.docker.com/">https://hub.docker.com/](<a href = "https://hub.docker.com/">https://hub.docker.com/)
+
+### Docker engine
+
+.Componentes de Docker Engine
+image::./DockerEngine.png[]
+
+### Versión y primer contenedor
+
+```bash
+$ docker --version
+Docker version 18.03.1-ce, build 9ee9f40
+
+$ docker run hello-world
+Unable to find image 'hello-world:latest' locally 
+latest: Pulling from library/hello-world
+9bb5a5d4561a: Pull complete 
+Digest: sha256:f5233545e43561214ca4891fd1157e1c3c563316ed8e237750d59bde73361e77
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+....
+```
+
+### Crear un contenedor Apache
+
+```bash
+$ docker run -d -p 82:80 httpd 
+```
+
+- Descarga una imagen si no existe localmente, lanza un contenedor y asocia el puerto 82 del host al puerto 80 del contenedor
+- `-d` lanza el contenedor en modo _dettached_
+
+También podemos usar el parámetro `--name <nombre>` para darle un nombre al contenedor. De forma predeterminada, Docker asigna un nombre aleatorio a los contenedores creados. El asignar un nombre es útil para administrar posteriormente los contenedores (pausa, eliminación, ...)
+
+.Contenedor ejecutando Apache
+image::./Apache.png[]
+
+### Funcionamiento básico con Docker
+
+.Funcionamiento básico con Docker
+image::./FuncionamientoBasico.png[]
+
+### Operaciones sobre contenedores
+
+#### Mostrar contenedores
+
+```bash
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago      Up 11 minutes       0.0.0.0:82->80/tcp       upbeat_stonebraker
+```
+
+#### Detener y reanudar un contenedor
+
+- Obtener el `CONTAINER ID` del contenedor que queremos detener.
+
+```bash
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago      Up 11 minutes       0.0.0.0:82->80/tcp       upbeat_stonebraker
+```
+#### Detener el contenedor
+
+```bash
+$ docker stop d2f73e6acd51
+```
+
+Al hacer `docker ps` no se muestran los contenedores que estén detenidos.
+
+#### Mostrar todos los contenedores, también los detenidos.
+
+```bash
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                        PORTS                    NAMES
+d2f73e6acd51        httpd               "httpd-foreground"       20 minutes ago      Exited (0) 2 minutes ago                               upbeat_stonebraker
+```
+
+[NOTE]
+====
+Los nombres generados para los contenedores son aleatorios.
+====
+
+#### Reanudar un contenedor
+
+```bash
+$ docker start d2f73e6acd51
+```
+
+Tras reanudar el contenedor, vuelve a aparecer cuando hacemos `docker ps`
+
+```bash
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago         Up 10 seconds       0.0.0.0:82->80/tcp       upbeat_stonebraker
+```
+
+#### Detener todos los contenedores en ejecución
+
+Primero obtenenemos los identificadores de los contenedores en ejecución con `docker ps -q`. Ese comando lo podemos encerrar entre apóstrofes y pasar su resultado a otro comando en la misma línea.
+
+```bash
+$ docker stop `docker ps -q`
+```
+
+#### Iniciar una lista de contenedores
+
+```bash
+$ docker start d2f73e6acd51 9811efbf6e45 178c2d03f2e7
+```
+
+#### Abrir un terminal en un contenedor
+
+```bash
+$ docker exec -it d2f73e6acd51 bash
+root@d2f73e6acd51:/usr/local/apache2# 
+```
+
+Se inicia una sesión como `root` en el contenedor. En la terminal del contenedor podemos ejecutar comandos del sistema operativo (`ls, df -h, cat /proc/cpuinfo, ...`). La cantidad y el tipo de comandos dependerá de la imagen usada para crear el contenedor.
+
+#### Copia de datos
+
+El almacenamiento en un contenedor no es persistente. Se eliminan los datos escritos en él tras su eliminación.
+
+```bash
+docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+```
+
+Como ejemplo vamos a crear en nuestro host un archivo `index.html` y lo copiaremos en el contenedor para sustituir la página de inicio del servidor Apache.
+
+```
+<!-- Ejemplo de archivo index.html -->
+<html>
+  <body>
+    <h1>Docker es una maravilla</h1>
+  </body>
+</html>
+```
+
+Ahora copiamos el archivo `index.html` al contenedor con `docker cp`
+
+```bash
+$ docker cp index.html d2f73e6acd51:/usr/local/apache2/htdocs/
+```
+
+.Cambio de página de inicio
+image::./CambioIndexApache.png[]
+
+#### Eliminación de un contenedor
+
+Primero paramos el contenedor y luego lo eliminamos con `docker rm`
+
+```bash
+$ docker stop d2f73e6acd51
+$ docker rm d2f73e6acd51
+```
+
+También se puede eliminar directamente un contenedor en ejecución forzando su eliminación
+
+`$ docker rm -f <id>`
+
+Al crear un nuevo contenedor a partir de la imagen `httpd` comprobamos que la página de inicio modificada anteriormente se eliminó junto al contenedor eliminado.
+
+```bash
+$ docker run -d -p 82:80 httpd
+```
+
+[TIP]
+====
+*Eliminación de todos los contenedores creados a partir de una imagen*
+```bash
+$ docker rm -f `docker ps -a | grep "wordpress" | awk '{print $1}'`
+```
+====
+
+### Resumen de comandos básicos para contenedores
+
+```sh
+$ docker info 
+$ docker version
+$ docker run <image> // Crea un contenedor a partir de una imagen. Si no tenemos la imagen en local, la descarga 
+$ docker run -d -p 82:80 nginx: Crea un contenedor en modo deattached accesible desde el puerto 82
+$ docker stop|start <id>: Detiene|Continúa un contenedor
+$ docker ps -a: Listado de contenedores (-a muestra también los parados)
+$ docker ps -q: Listado de los ids de los contenedores
+$ docker stop `docker ps -q`: Para todos los contenedores que devuelve el subcomando `docker ps -q`
+$ docker rm <id>: Borra un contenedor si está parado
+$ docker rm -f <id>: Fuerza el borrado de un contenedor aunque esté parado
+$ docker exec -it <id> sh: Abre una terminal en el contenedor 
+$ docker exec <id> ls: Ejecuta el comando ls en el contenedor para mostrar sus archivos 
+$ docker cp <id>:./dockerenv .: Copia el fichero dockerenv del contenedor en nuestro sistema de archivos local
+```
+
+## Creación de imágenes propias
+
+### El `Dockerfile`
+
+* Para construir una imagen, se crea un `Dockerfile` con las instrucciones que especifican lo que va a ir en el entorno, dentro del contenedor (redes, volúmenes, puertos al exterior, archivos que se incluyen
+* Indica cómo y con qué construir la imagen
+* Conseguimos que el build de la aplicación definida en el contenedor se comporte de la misma forma en cualquier lugar que se ejecute
+
+Ejemplo de `Dockerfile`
+
+```
+# Use an official Python runtime as a parent image
+FROM python:2.7-slim
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+ADD . /app
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
+# Define environment variable
+ENV NAME World
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
+```
+
+Fragmento de `Dockerfile` para construir una imagen con Ubuntu como base y definiendo dónde se montará un volumen externo
+
+```
+FROM ubuntu:latest
+RUN apt-get update -y
+RUN apt-get install -y python-pip python-dev
+WORKDIR /app
+ENV DEBUG=True
+EXPOSE 80
+VOLUME /data
+```
+
+### Imágenes
+
+* Se construyen con `docker build` a partir de un `Dockerfile`
+* Se crean en un contexto (normalmente añadiendo archivos del directorio de trabajo del host a la imagen -p.e. el código fuente de la aplicación)
+* Con `FROM` (normalmente primera instrucción del `Dockerfile`) inicializamos el sistema de archivos de la imagen (p.e. si es ubuntu obtenemos el sistema de archivos de Ubuntu)
+* Muchas imágenes disponibles en Docker Hub usan Alpine (una distribución ligera de Linux) en lugar de Ubuntu, Fedora o CentOS, debido a su menor tamaño
+* Cada instrucción del `Dockerfile` genera una nueva capa (con la diferencia) en ese sistema de archivos
+* Al hacer `build` las capas existentes en local no se vuelven a crear
+
+### Ejemplo de contenedor para aplicaciones web en PHP
+
+Vamos a construir un contenedor que incluya de forma estática una aplicación (p.e. la última versión de la aplicación). El proceso a seguir es:
+
+1. Creación de la aplicación.
+1. Creación del `Dockerfile` para generación de la imagen.
+1. Generación de la imagen.
+
+A partir de una carpeta nueva crearemos lo siguiente:
+
+* Archivo `Dockerfile`
+* Carpeta `html` con los scritps de nuestra aplicación
+* Archivo `html/index.php` con el código de nuestra aplicación
+
+El `Dockerfile`
+
+```
+FROM tutum/apache-php
+
+ADD html /var/www/html
+
+EXPOSE 80
+```
+
+Archivo `html/index.php` de ejemplo
+
+```
+<?php
+  echo "Hola desde Docker";
+?>
+```
+
+#### Construcción de la imagen. 
+
+`$ docker build -t pruebaphp .`
+
+Con `-t` definimos una etiqueta o nombre de la imagen. Al construir la imagen pasa a nuestro registro.
+
+#### Listado de imágenes locales
+
+```bash
+$ docker image ls
+REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
+pruebaphp              latest              152781e32617        14 hours ago        245MB
+```
+
+#### Creación de un contenedor a partir de la imagen
+
+`$ docker run -d -p 83:80 pruebaphp`
+
+Un posible inconveniente que podemos encontrar en este ejemplo es que la aplicación va incluida en la propia imagen, por lo que para actualizar la aplicación deberemos crear una nueva imagen, y después crear un nuevo contenedor a partir de ella desechando el contenedor anterior.
+
+### Ejemplo de contenedor con volumen externo
+
+En este ejemplo la aplicación la tendremos aparte en un volumen externo accesible por el contenedor. De esta forma, si nuestra aplicación está vinculada a un repositorio, la actualización de la aplicación se realiza descargando la última versión del repositorio, manteniendo intacto el contenedor.
+
+La forma de usar volúmenes con `Dockerfile` consiste en:
+
+1. Añadir en el `Dockerfile` la lista de carpetas que se montarán con volúmenes externos
+1. Al crear el contenedor indicar el punto de montaje en el host remoto en forma de ruta absoluta
+
+El `Dockerfile`
+
+```
+FROM tutum/apache-php
+
+VOLUME /var/www/html
+
+EXPOSE 80
+```
+
+```bash 
+$ docker run -d -p 83:80 -v=/Users/manolo/Documents/Desarrollo/SeminarioDocker/phpsimple/html:/var/www/html pruebaphp
+```
+
+También podemos hacer uso de la evaluación de órdenes con apóstrofes para obtener el path actual y añadirle sólo la carpeta `html`.
+
+```bash 
+$ docker run -d -p 83:80 -v=`pwd`/html:/var/www/html pruebaphp
+```
+
+### Descarga y subida de imágenes a Docker Hub
+
+* Etiquetar la imagen antes de subirla a Docker Hub
+
+```
+$ docker tag phpprueba ualmtorres/phpprueba:v0
+```
+
+* Subida de la imagen a Docker Hub
+
+```bash
+docker push <usuario>/<image>
+```
+
+* Al hacer `push` las capas que ya estén subidas no se vuelven a subir. En cuanto una instrucción del `Dockerfile` cambia una capa, invalida al resto y hay que volver a generar las instrucciones de las capas restantes. Por tanto, colocaremos antes en el `Dockerfile` lo que menos cambie.
+* Al hacer `pull` sólo se descargan las capas nuevas.
+* Si cambiamos en el host archivos de los que se incluyen en la imagen se genera una capa nueva invalidando la caché.
+
+```bash
+$ docker pull wordpress
+$ docker run -d -p 80:80 --name my_wordpress wordpress 
+```
+
+### Resumen de comandos básicos para imágenes
+
+```bash
+$ docker login
+$ docker run -d ngninx
+$ docker pull <image>
+$ docker image ls: Lista imágenes locales
+$ docker inspect <image>: Propiedades de una imagen
+$ docker image rm <image>: Elimina una imagen local
+```
+
+## Aplicaciones con varios contenedores
+
+* Compose es una herramienta para definir y ejecutar aplicaciones Docker con varios contenedores.
+* Usaremos un archivo `docker-compose.yml` para configurar los servicios de la aplicación 
+* En un mismo host podemos tener varios entonos aislados en el mismo host. Compose usa nombres de proyecto para mantener a los entornos aislados. De forma predeterminada se usa el nombre del directorio desde donde se lanza la aplicación.
+* `docker-compose --version` para obtener la versión y saber si está instalado.
+* Instalación desde [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+
+### Uso básico de Docker Compose
+
+1. Crear el archivo `docker-compose.yml` con los servicios de la aplicación
+2. Construir y lanzar el entorno con `docker-compose up -d`
+3. Echar abajo el entorno con `docker-compose down`
+
+### Comandos básicos para Docker Compose
+
+```sh
+$ docker-compose up -d      Construye y lanza el entorno
+$ docker-compose pull       Descarga las imágenes pero no inicia los contenedores
+$ docker-compose rm [-fs]   Borra los contedores parados. Con -fs los detiene y fuerza su borrado
+```
+
+## Ejemplo: Aplicación web (PHP) con soporte de Base de datos (MySQL)
+
+* Aplicación que muestra un listado de clientes almacenado en una base de datos MySQL.
+* Podemos distribuirla con un repositorio que incluya una carpeta `html` con la aplicación PHP.
+* Al iniciar el servicio MySQL se ejecutará un script de inicialización de la base de datos.
+* Usaremos volúmenes externos para la base de datos y para la aplicación web para asegurar la persistencia de los cambios.
+
+`docker-compose.yml`
+
+```yaml
+version: '2'
+services:
+  mysql:
+    container_name: my_mysql
+    restart: always
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'secret' # TODO: Change this
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  php:
+    container_name: my_php
+    restart: always
+    image: tutum/apache-php
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
+```
+
+`index.php` [Descargar index.php](https://gist.githubusercontent.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1/raw/812f0db2da07037416db8967130eb16b16b5b88e/index.php)
+
+++++
+<script src="https://gist.github.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1.js"></script>
+++++
+
+`init.sql` [Descargar init.sql](https://gist.githubusercontent.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f/raw/448b00c44d7102d66077a393dad555585862f923/init.sql)
+
+++++
+<script src="https://gist.github.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f.js"></script>
+++++
+
+## Escalado de aplicaciones con Docker Swarm
+
+En aplicaciones distribuidas y con gran demanda podemos replicar contenedores en un servicio. Llegado el caso, necesitamos indicar la cantidad de contenedores que están ejecutando un servicio. También, ajustaremos la cantidad del recursos del host que se dedican a la ejecución de las réplicas. Un balanceador de carga se encargará de ir alternando los contenedores a los que se envían las peticiones.
+
+### Orquestación de contenedores
+
+* Aprovisionamiento de hosts
+* Instanciación de contenedores
+* Sustitución de contenedores erróneos
+* Escalado aumentando o disminuyendo el número de contenedores
+
+### Orquestadores de contenedores más populares
+
+- Amazon EC2 Container Service
+- Azure Container Service
+- Docker Swarm (el que veremos en este seminario debido a su sencillez)
+- Google Container Engine
+- Kubernetes (el líder del momento)
+
+### Docker Swarm 
+
+* Docker Swarm permite crear y gestionar clusters de contenedores usando el archivo `docker-compose.yml`. 
+* Un cluster de contenedores se ejecuta en un _swarm_ (enjambre). 
+* Un _swarm_ está formado por nodos, que pueden ser máquinas físicas o virtuales. 
+* Hay dos tipos de nodos: _manager_ y _worker_.
+* La composición del _swarm_ es dinámica. Se pueden añadir y eliminar nodos _worker_ sobre la marcha según sea conveniente. También es posible añadir nuevos nodos _manager_.
+
+#### Creación del swarm
+
+`docker swarm init`
+
+Esto crea un _swarm_ configurando como _manager_ la máquina sobre la que se ha ejecutado. Ademas, muestra las instrucciones para añadir nuevos nodos _worker_ o _manager_ al _swarm_ creado.
+
+```sh
+$ docker swarm init
+Swarm initialized: current node (uifjsdvl3v1ydv5p7ocif2j13) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-6635wxwy4wun1fvedd3hq27cganpqh28g0zh72ufhrytduewe9-1f6wj5wlzmjyt87ykdoyb1nci 192.168.65.3:2377
+```
+
+#### Definición de los servicios y réplicas
+
+En el archivo `docker-compose.yml` definiremos cada uno de los servicios de nuestra aplicación, número de réplicas de los servicios y límites de recursos (CPU, RAM) asignados a cada contenedor. 
+
+Ejemplo de `docker-compose.yml`
+
+```yaml
+version: '3'
+services:
+  php:
+    image: tutum/apache-php
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - webnet
+networks:
+  webnet:
+```
+
+En este caso definimos dos servicios: `php` y `visualizer`.
+
+* `php` tendrá 3 réplicas. A cada una de ellas le limitamos los recursos al 10% de uso de la CPU del host en el que se ejecuta el contenedor (también se pueden indicar qué núcleos usar) y 50MB de RAM.
+* `visualizer` nos permite crear un contenedor que de forma sencilla muestra el la cantidad y el estado de los contenedores de cada nodo del _swarm_.
+
+A modo de ejemplo nuestra aplicación mostrará simplemente el id del contenedor donde se está ejecutando para poder ver funcionando el balanceador.
+
+`html/index.php`
+
+```
+<?php
+ echo "Contenedor: " . gethostname();
+?>
+```
+
+#### Despliegue del entorno (_stack_)
+
+Para lanzar esta aplicación ejecutaremos el comando siguiente:
+
+`docker stack deploy -c docker-compose.yml my_app`
+
+El parámetro `-c` es opcional y especifica el archivo _compose_. `my_app` es el nombre que le damos al _stack_ creado. Pensemos en un `stack` como un conjunto de servicios.
+
+Tras unos instantes se creará el entorno y estarán ejecutándose la aplicación (puerto 80) y el visualizador (puerto 8080). 
+
+.Aplicación mostrando el número de contenedor
+image::./Balanceador.png[]
+
+.El visualizador
+image::./Visualizer.png[]
+
+Tenemos varios comandos para conocer el estado del `stack` creado.
+
+Con `docker stack` podemos gestionar _stacks_. Por ejemplo, con `docker stack ls` vemos los stacks creados con la cantidad de servicios que incluye cada uno. 
+
+```bash
+$ docker stack ls
+NAME                SERVICES
+my_app              2
+```
+
+Con `docker service ls` vemos los distintos servicios y la cantidad y estado de sus réplicas.
+
+```bash
+$ docker service ls
+ID                  NAME                MODE                REPLICAS            IMAGE                             PORTS
+sdl5bm21s0yy        my_app_php          replicated          3/3                 tutum/apache-php:latest           *:80->80/tcp
+qz1ztlmg8v5c        my_app_visualizer   replicated          1/1                 dockersamples/visualizer:stable   *:8080->8080/tcp
+```
+
+Con `docker stack ps my_app` vemos el estado de cada una de las tareas (contenedores) del _stack_.
+
+```bash
+$ docker stack ps my_app
+ID                  NAME                  IMAGE                             NODE                    DESIRED STATE       CURRENT STATE            ERROR               PORTS
+toe9wcw3dr3c        my_app_visualizer.1   dockersamples/visualizer:stable   linuxkit-025000000001   Running             Running 5 minutes ago                        
+muctyf72795z        my_app_php.1          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago                       
+2drnqiz0gnc4        my_app_php.2          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago                       
+w72jaflcg7em        my_app_php.3          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago        
+```
+
+### Escalado de la aplicación
+
+Para aumentar o disminiur en Docker Swarm el número de réplicas de un servicio basta con editar el archivo `docker-compose.yml` con el nuevo número de réplicas y volver a hacer el despliegue con 
+
+`docker stack deploy -c docker-compose.yml my_app`
+
+Esta operación de actualización del despliegue es la que también se usa para añadir nuevos servicios a un _stack_.
+
+Por ejemplo, probemos a aumentar a 5 el número de réplicas. Con `docker stack ps my_app` podemos ver los cambios, así como con `docker ps`, así como desde Visualizer.
+
+```bash
+$ docker ps
+CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
+c4601bf19e93        tutum/apache-php:latest           "/run.sh"           12 seconds ago      Up 17 seconds       80/tcp              my_app_php.4.w5rimht8gjwu0cuqw5dl8oj3g
+88a6658914e2        tutum/apache-php:latest           "/run.sh"           12 seconds ago      Up 18 seconds       80/tcp              my_app_php.5.qqi6rr048v4rjorgekh21cbzw
+bae11deefc86        dockersamples/visualizer:stable   "npm start"         5 minutes ago       Up 5 minutes        8080/tcp            my_app_visualizer.1.lqgs068de4twhhjlnjppxslt7
+295087ef5699        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.1.ezkg7sltzp9epcbdznxtvuw0j
+4fd213e5b091        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.2.3nas4lrvuoangkgrgovcycfzd
+1fc9631de451        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.3.jd89jf59jy5k6scmxuh9w7bl1
+```
+
+#### Apagado de la aplicación y del swarm
+
+Para eliminar el stack de dos servicios creado para este ejemplo ejecutamos el comando siguiente
+
+`$ docker stack rm my_app`
+
+Para que nuestro nodo (el nodo _manager_) deje el _swarm_ ejecutaremos el comando
+
+`$ docker swarm leave --force`
+
+### Administración de Docker con _Portainer_
+
+_Portainer_ es una Web UI sencilla y potente para administración de entornos Docker locales y remotos. Permite la administración de stacks, servicios, contenedores, imágenes, redes y volúmenes.
+
+A continuación se muestra el `docker-compose.yml` de la aplicación anterior sustituyendo el servicio de `visualizer` por el de `portainer`.
+
+```yaml
+version: '3'
+services:
+  php:
+    image: tutum/apache-php
+    ports:
+      - "81:80"
+    volumes:
+      - ./html:/var/www/html
+    deploy:
+      replicas: 5
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - portainernet
+  portainer:
+    image: portainer/portainer
+    ports:
+      - "9000:9000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - ./portainer_data:/data
+    networks:
+      - portainernet
+networks:
+  portainernet:
+```
+
+Iniciamos el _swarm_ y hacemos el despliegue con
+
+```bash
+$ docker swarm init
+$ docker stack deploy -c docker-compose.yml portainer
+```
+
+Tras unos instantes tendremos Portainer en el puerto 9000. Tras definir una cuenta de usuario podremos entrar a administrar nuestro entorno Docker local.
+
+image::./Portainer.png[]
+
+### Resumen de los comandos para _swarms_
+
+```bash
+$ docker swarm init             Inicialización de swarm y del nodo manager
+$ docker stack deploy -c docker-compose.yml <stack> Despliegue de stack
+$ docker stack ls               Lista de stacks y cantidad de servicios que tiene
+$ docker service ls             Listado de servicios y estado de sus réplicas
+$ docker stack ps <stack>       Listado de las tareas del stack
+$ docker stack rm <stack>       Eliminación del stack
+$ docker swarm leave --force    Salida de un nodo del swarm
+```
+
+## Docker machine
+
+Docker machine es una herramienta que nos permite:
+
+* Administrar _swarms_ aprovisiónandolos y añadiéndoles nodos
+* Instalar y ejecutar Docker en los nodos creados
+* Aprovisionar los nodos creados
+
+Los nodos del _swarm_ pueden ser máquinas virtuales creadas en el host con VirtualBox o con proveedores cloud como Azure, AWS u OpenStack. En este seminario nos centraremos en la creación e inicialización de un _swarm_ en OpenStack. En nuestro caso, Docker machine usará la API de OpenStack encargándose de la creación de los nodos del _swarm_ evitando tener que crear los nodos desde OpenStack.
+
+### Creación de archivo con variables de entorno
+
+Incluiremos las opciones habituales y que están disponibles como variables de entorno. Se incluirán en el archivo los valores de OpenStack relativos a la cuenta de usuario, red, proyecto y demás.
+
+`openrc-mtorres.sh`
+
+```bash
+export OS_USERNAME=mtorres
+export OS_PASSWORD=XXXXXXXXXXXX
+export OS_PROJECT_NAME=mtorres
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_AUTH_URL=http://www.xxx.yyy.zzz:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+export OS_TENANT_NAME=mtorres
+```
+
+donde `www.xxx.yyy.zzz` es el nombre DNS o IP que usemos para conectarnos a OpenStack.
+
+A continuación, cargaremos las variables de entorno con
+
+`source openrc-mtorres.sh`
+
+### Creación de los nodos del _swarm_
+
+Para crear los nodos del _swarm_ en OpenStack con Docker machine tendremos que pasar una serie de valores relativos al sabor, nombre de imagen, red, nombre de usuario de las instancias, claves ssh, y demás.
+
+Desde una máquina que esté en la red de la UAL creamos una máquina con Docker con este comando (no vale por VPN porque actualmente el puerto 5000 que se usa para la autenticación con OpenStack no está abierto en VPN):
+
+```bash
+docker-machine create -d openstack \
+--openstack-flavor-name small \
+--openstack-image-name "Ubuntu 16.04 LTS" \
+--openstack-domain-name default \
+--openstack-net-name mtorres-net \
+--openstack-floatingip-pool ext-net \
+--openstack-ssh-user ubuntu \
+--openstack-sec-groups default \
+--openstack-keypair-name mtorres_ual \
+--openstack-private-key-file ~/.ssh/id_rsa \
+nodo1
+```
+
+Esto comenzará a crear una instancia con los parámetros indicados en nuestro proyecto OpenStack. Tras unos instantes, nos devolverá esta información relativa a la creación del `nodo1`.
+
+```bash
+Running pre-create checks...
+Creating machine...
+(nodo1) Creating machine...
+Waiting for machine to be running, this may take a few minutes...
+Detecting operating system of created instance...
+Waiting for SSH to be available...
+Detecting the provisioner...
+Provisioning with ubuntu(systemd)...
+Installing Docker...
+Copying certs to the local machine directory...
+Copying certs to the remote machine...
+Setting Docker configuration on the remote daemon...
+Checking connection to Docker...
+Docker is up and running!
+To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: docker-machine env nodo1
+```
+
+Repetimos el comando para crear otro nodo en nuestro proyecto al que denominaremos `nodo2`.
+
+Para listar las dos máquinas creadas con Docker machine ejecutaremos el comando siguiente. 
+
+```bash
+$ docker-machine ls
+NAME    ACTIVE   DRIVER      STATE     URL                         SWARM   DOCKER        ERRORS
+nodo1   -        openstack   Running   tcp://192.168.66.211:2376           v18.05.0-ce   
+nodo2   -        openstack   Running   tcp://192.168.66.235:2376           v18.05.0-ce   
+```
+
+Para acceder a las máquinas creadas y ver que aún no tienen contenedores  creados debemos cargar las variables de entorno de la que vayamos a usar (p.e. `nodo1`).
+
+```bash
+$ eval $(docker-machine env nodo1)
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+```
+
+Para crear el _swarm_ haremos que el nodo 1 sea el _manager_ y el nodo 2 sea el _worker_.
+
+#### Creación del nodo _manager_
+
+```
+$ docker-machine  ssh nodo1 "sudo docker swarm init --advertise-addr 192.168.66.211"
+Swarm initialized: current node (y0831vf8yj3vu120jj3zp8c6k) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-1j411qkevgcza9uunune32q4p6p4xylyz944uozow0l7shr66t-7ujr8f9i9lti19rz9oqkjh89n 192.168.66.211:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+```
+
+Anotaremos el token para poder añadir nodos al swarm.
+
+#### Creación del nodo _worker_
+
+```bash
+$ docker-machine ssh nodo2 "sudo docker swarm join --token SWMTKN-1-1j411qkevgcza9uunune32q4p6p4xylyz944uozow0l7shr66t-7ujr8f9i9lti19rz9oqkjh89n 192.168.66.211:2377"
+This node joined a swarm as a worker.
+```
+
+### Comprobación del _swarm_ creado
+
+```bash
+$ docker-machine ssh nodo1 "sudo docker node ls"
+ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+y0831vf8yj3vu120jj3zp8c6k *   nodo1               Ready               Active              Leader              18.05.0-ce
+zgc0e50822qabzlfceclrso6c     nodo2               Ready               Active                                  18.05.0-ce
+```
+
+### Despliegue de la aplicación en los nodos
+
+1. Abrir sesiones SSH en cada nodo del _swarm_ para añadir el usuario `ubuntu` al grupo `docker` con `sudo usermod -a -G docker ubuntu` y añadir los directorios que usen como punto de montaje de los volúmenes (Probar a hacer esto con docker-machine)
+2. Hacer despliegue desde el nodo manager
+
+```yaml
+version: '3'
+services:
+  php:
+    image: tutum/apache-php
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
+    deploy:
+      replicas: 6
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+networks:
+  webnet:
+```
+
+## Otras operaciones interesantes
+
+### Microservicios y contenedores
+
+Con microservicios: 
+
+* Establecemos un contrato, normalmente mediante una API REST, versionada para no romper funcionalidad a usuarios anteriores
+* ocupan un tamaño reducido y suelen realizar una tarea muy concreta
+    * Autenticación, 
+    * API REST. Toda la API vs cada endpoint
+    * Estadísticas consumo de recursos
+    * Exportar salida a central de logs
+    * ...
+* Dockerizar con cabeza
+    * Comenzamos pasando todo nuestro sistema o MV a un contenedor Docker. Con sólo eso ya conseguimos ejecutar nuestra sistema en distintas máquinas con distintos SO y configuraciones. 
+    * No intentar pasar de una vez de aplicación monlítica a microservicios diminutos
+
+### Conexión a daemons Docker remotos
+
+Util para conectarnos desde nuestro equipo al Docker de producción o al de  pruebas
+
+* Crear en local un archivo de variables de entorno (p.e. `DockerProyectoBrainstorm.sh`)
+
+```bash
+export DOCKER_TLS_VERIFY=1
+export DOCKER_CERT_PATH="<ruta completa de certificado>"
+export DOCKER_HOST="tcp://<IP o nombre DNS>:443"
+```
+
+* Después, `source DockerProyectoBrainstorm.sh` y ¡¡Estamos conectados!!
+* Si la conexión fuera abierta, indicaríamos `export DOCKER_TLS_VERIFY=0`. 
+
+ 
+
+
