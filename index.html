@@ -1930,7 +1930,7 @@ services:
     volumes:
       - ./html:/var/www/html
     deploy:
-      replicas: 6
+      replicas: 4
       resources:
         limits:
           cpus: "0.1"
@@ -1953,6 +1953,12 @@ services:
 networks:
   webnet:</code></pre>
 </div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/VisualizerSwarm.png" alt="VisualizerSwarm.png">
+</div>
+<div class="title">Figure 9. Cluster de dos nodos con 4 réplicas del servicio <code>php</code></div>
 </div>
 </div>
 </div>
@@ -2035,7 +2041,7 @@ export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-05 10:00:54 CEST
+Last updated 2018-06-05 12:28:46 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

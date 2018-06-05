@@ -937,7 +937,7 @@ services:
     volumes:
       - ./html:/var/www/html
     deploy:
-      replicas: 6
+      replicas: 4
       resources:
         limits:
           cpus: "0.1"
@@ -960,6 +960,9 @@ services:
 networks:
   webnet:
 ```
+
+.Cluster de dos nodos con 4 réplicas del servicio `php`
+image::./VisualizerSwarm.png[]
 
 ## Otras operaciones interesantes
 
