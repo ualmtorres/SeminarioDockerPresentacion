@@ -82,7 +82,7 @@ image::DockerVsMV.png[]
 
 #### Instalación: 
 
-[https://docs.docker.com/install/#desktop](https://docs.docker.com/install/#desktop)
+https://docs.docker.com/install/#desktop[https://docs.docker.com/install/#desktop]
 
 Obtenemos: 
 
@@ -92,7 +92,7 @@ Obtenemos:
 
 #### Crear cuenta en Docker Hub
 
-Docker Hub es un registro público de imágenes (Lugar donde se almacenan imágenes): [<a href = "https://hub.docker.com/">https://hub.docker.com/](<a href = "https://hub.docker.com/">https://hub.docker.com/)
+Docker Hub es un registro público de imágenes (Lugar donde se almacenan imágenes): https://hub.docker.com/[https://hub.docker.com] 
 
 ### Docker engine
 
@@ -126,7 +126,15 @@ $ docker run -d -p 82:80 httpd
 - Descarga una imagen si no existe localmente, lanza un contenedor y asocia el puerto 82 del host al puerto 80 del contenedor
 - `-d` lanza el contenedor en modo _dettached_
 
+[NOTE]
+====
+El primer puerto que aparece el del host y el segundo el del contenedor
+====
+
+[TIP]
+====
 También podemos usar el parámetro `--name <nombre>` para darle un nombre al contenedor. De forma predeterminada, Docker asigna un nombre aleatorio a los contenedores creados. El asignar un nombre es útil para administrar posteriormente los contenedores (pausa, eliminación, ...)
+====
 
 .Contenedor ejecutando Apache
 image::./Apache.png[]
@@ -146,6 +154,11 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago      Up 11 minutes       0.0.0.0:82->80/tcp       upbeat_stonebraker
 ```
 
+[NOTE]
+====
+Los nombres generados para los contenedores son aleatorios si no se usa el parámetro `-name` al crearlos.
+====
+
 #### Detener y reanudar un contenedor
 
 - Obtener el `CONTAINER ID` del contenedor que queremos detener.
@@ -161,7 +174,10 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 $ docker stop d2f73e6acd51
 ```
 
+[CAUTION]
+====
 Al hacer `docker ps` no se muestran los contenedores que estén detenidos.
+====
 
 #### Mostrar todos los contenedores, también los detenidos.
 
@@ -170,11 +186,6 @@ $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                        PORTS                    NAMES
 d2f73e6acd51        httpd               "httpd-foreground"       20 minutes ago      Exited (0) 2 minutes ago                               upbeat_stonebraker
 ```
-
-[NOTE]
-====
-Los nombres generados para los contenedores son aleatorios.
-====
 
 #### Reanudar un contenedor
 
@@ -215,7 +226,10 @@ Se inicia una sesión como `root` en el contenedor. En la terminal del contenedo
 
 #### Copia de datos
 
+[CAUTION]
+====
 El almacenamiento en un contenedor no es persistente. Se eliminan los datos escritos en él tras su eliminación.
+====
 
 ```bash
 docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
@@ -261,13 +275,12 @@ Al crear un nuevo contenedor a partir de la imagen `httpd` comprobamos que la p�
 $ docker run -d -p 82:80 httpd
 ```
 
-[TIP]
-====
-*Eliminación de todos los contenedores creados a partir de una imagen*
+.Eliminación de todos los contenedores creados a partir de una imagen
+****
 ```bash
 $ docker rm -f `docker ps -a | grep "wordpress" | awk '{print $1}'`
 ```
-====
+****
 
 ### Resumen de comandos básicos para contenedores
 
@@ -416,11 +429,14 @@ EXPOSE 80
 $ docker run -d -p 83:80 -v=/Users/manolo/Documents/Desarrollo/SeminarioDocker/phpsimple/html:/var/www/html pruebaphp
 ```
 
+[TIP]
+====
 También podemos hacer uso de la evaluación de órdenes con apóstrofes para obtener el path actual y añadirle sólo la carpeta `html`.
 
 ```bash 
 $ docker run -d -p 83:80 -v=`pwd`/html:/var/www/html pruebaphp
 ```
+====
 
 ### Descarga y subida de imágenes a Docker Hub
 
@@ -460,14 +476,14 @@ $ docker image rm <image>: Elimina una imagen local
 
 * Compose es una herramienta para definir y ejecutar aplicaciones Docker con varios contenedores.
 * Usaremos un archivo `docker-compose.yml` para configurar los servicios de la aplicación 
-* En un mismo host podemos tener varios entonos aislados en el mismo host. Compose usa nombres de proyecto para mantener a los entornos aislados. De forma predeterminada se usa el nombre del directorio desde donde se lanza la aplicación.
+* En un mismo host podemos tener varios entonos aislados. Compose usa nombres de proyecto para mantener a los entornos aislados. De forma predeterminada se usa el nombre del directorio desde donde se lanza la aplicación.
 * `docker-compose --version` para obtener la versión y saber si está instalado.
-* Instalación desde [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+* Instalación desde https://docs.docker.com/compose/install[https://docs.docker.com/compose/install]
 
 ### Uso básico de Docker Compose
 
-1. Crear el archivo `docker-compose.yml` con los servicios de la aplicación
-2. Construir y lanzar el entorno con `docker-compose up -d`
+1. Crear el archivo `docker-compose.yml` con los servicios de la aplicación (p.e. php y mysql)
+2. Construir y lanzar el entorno en modo _dettached_ con `docker-compose up -d`
 3. Echar abajo el entorno con `docker-compose down`
 
 ### Comandos básicos para Docker Compose
@@ -481,7 +497,7 @@ $ docker-compose rm [-fs]   Borra los contedores parados. Con -fs los detiene y 
 ## Ejemplo: Aplicación web (PHP) con soporte de Base de datos (MySQL)
 
 * Aplicación que muestra un listado de clientes almacenado en una base de datos MySQL.
-* Podemos distribuirla con un repositorio que incluya una carpeta `html` con la aplicación PHP.
+* Podemos distribuirla con un repositorio que incluya una carpeta `html` con la aplicación PHP https://github.com/ualmtorres/customer_catalog.git[https://github.com/ualmtorres/customer_catalog.git].
 * Al iniciar el servicio MySQL se ejecutará un script de inicialización de la base de datos.
 * Usaremos volúmenes externos para la base de datos y para la aplicación web para asegurar la persistencia de los cambios.
 
@@ -511,13 +527,13 @@ services:
       - ./html:/var/www/html
 ```
 
-`index.php` [Descargar index.php](https://gist.githubusercontent.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1/raw/812f0db2da07037416db8967130eb16b16b5b88e/index.php)
+`index.php` https://gist.githubusercontent.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1/raw/812f0db2da07037416db8967130eb16b16b5b88e/index.php[Descargar index.php]
 
 ++++
 <script src="https://gist.github.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1.js"></script>
 ++++
 
-`init.sql` [Descargar init.sql](https://gist.githubusercontent.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f/raw/448b00c44d7102d66077a393dad555585862f923/init.sql)
+`init.sql` https://gist.githubusercontent.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f/raw/448b00c44d7102d66077a393dad555585862f923/init.sql[Descargar init.sql]
 
 ++++
 <script src="https://gist.github.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f.js"></script>
@@ -528,9 +544,14 @@ image::./CustomerCatalog.png[]
 
 ## Escalado de aplicaciones con Docker Swarm
 
-En aplicaciones distribuidas y con gran demanda podemos replicar contenedores en un servicio. Llegado el caso, necesitamos indicar la cantidad de contenedores que están ejecutando un servicio. También, ajustaremos la cantidad del recursos del host que se dedican a la ejecución de las réplicas. Un balanceador de carga se encargará de ir alternando los contenedores a los que se envían las peticiones.
+* En aplicaciones distribuidas y con gran demanda podemos replicar contenedores en un servicio. 
+* Llegado el caso, necesitamos indicar la cantidad de contenedores que están ejecutando un servicio. 
+* También, ajustaremos la cantidad del recursos del host que se dedican a la ejecución de las réplicas. 
+* Un balanceador de carga se encargará de ir alternando los contenedores a los que se envían las peticiones.
 
 ### Orquestación de contenedores
+
+Herramientas que nos ayudan en las tareas de:
 
 * Aprovisionamiento de hosts
 * Instanciación de contenedores
@@ -542,8 +563,8 @@ En aplicaciones distribuidas y con gran demanda podemos replicar contenedores en
 - Amazon EC2 Container Service
 - Azure Container Service
 - Docker Swarm (el que veremos en este seminario debido a su sencillez)
-- Google Container Engine
 - Kubernetes (el líder del momento)
+- Google Container Engine (construido sobre Kubernetes)
 
 ### Docker Swarm 
 
@@ -551,6 +572,8 @@ En aplicaciones distribuidas y con gran demanda podemos replicar contenedores en
 * Un cluster de contenedores se ejecuta en un _swarm_ (enjambre). 
 * Un _swarm_ está formado por nodos, que pueden ser máquinas físicas o virtuales. 
 * Hay dos tipos de nodos: _manager_ y _worker_.
+* Los nodos _manager_ se encargan de mantener el estado del cluster y de planificar los servicios.
+* Los nodos _manager_ sólo se encargan de ejecutar contenedores. De forma predeterminada, al definir un _manager_ también es _worker_.
 * La composición del _swarm_ es dinámica. Se pueden añadir y eliminar nodos _worker_ sobre la marcha según sea conveniente. También es posible añadir nuevos nodos _manager_.
 
 #### Creación del swarm
@@ -668,13 +691,28 @@ w72jaflcg7em        my_app_php.3          tutum/apache-php:latest           linu
 
 ### Escalado de la aplicación
 
-Para aumentar o disminiur en Docker Swarm el número de réplicas de un servicio basta con editar el archivo `docker-compose.yml` con el nuevo número de réplicas y volver a hacer el despliegue con 
+Podemos aumentar o disminiur en Docker Swarm el número de réplicas de un servicio mediante comandos o volviendo a desplegar el stack modificando el número de réplicas.
+
+#### Escalado mediante comandos
+
+La sintaxis es 
+`$ docker service scale <SERVICE-ID>=<NUMBER-OF-TASKS>`
+
+Por ejemplo, para que el número de réplicas del servicio `php` del stack `my_app` sea 7 ejecutaríamos el comando
+
+```bash
+$ docker service scale php=7
+```
+
+#### Escalado volviendo a desplegar el stack
+
+Editar el archivo `docker-compose.yml` con el nuevo número de réplicas y volver a hacer el despliegue con 
 
 `docker stack deploy -c docker-compose.yml my_app`
 
 Esta operación de actualización del despliegue es la que también se usa para añadir nuevos servicios a un _stack_.
 
-Por ejemplo, probemos a aumentar a 5 el número de réplicas. Con `docker stack ps my_app` podemos ver los cambios, así como con `docker ps`, así como desde Visualizer.
+Por ejemplo, probemos a aumentar a 7 el número de réplicas. Con `docker stack ps my_app` podemos ver los cambios, así como con `docker ps`, así como desde Visualizer.
 
 ```bash
 $ docker ps

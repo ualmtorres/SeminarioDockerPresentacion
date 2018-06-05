@@ -616,7 +616,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect3">
 <h4 id="trueinstalaci-n"><a class="anchor" href="#trueinstalaci-n"></a>2.1.1. Instalación:</h4>
 <div class="paragraph">
-<p>[<a href="https://docs.docker.com/install/#desktop" class="bare">https://docs.docker.com/install/#desktop</a>](<a href="https://docs.docker.com/install/#desktop" class="bare">https://docs.docker.com/install/#desktop</a>)</p>
+<p><a href="https://docs.docker.com/install/#desktop">https://docs.docker.com/install/#desktop</a></p>
 </div>
 <div class="paragraph">
 <p>Obtenemos:</p>
@@ -638,7 +638,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect3">
 <h4 id="truecrear-cuenta-en-docker-hub"><a class="anchor" href="#truecrear-cuenta-en-docker-hub"></a>2.1.2. Crear cuenta en Docker Hub</h4>
 <div class="paragraph">
-<p>Docker Hub es un registro público de imágenes (Lugar donde se almacenan imágenes): [&lt;a href = "https://hub.docker.com/"&gt;<a href="https://hub.docker.com/" class="bare">https://hub.docker.com/</a>](&lt;a href = "https://hub.docker.com/"&gt;<a href="https://hub.docker.com/" class="bare">https://hub.docker.com/</a>)</p>
+<p>Docker Hub es un registro público de imágenes (Lugar donde se almacenan imágenes): <a href="https://hub.docker.com/">https://hub.docker.com</a></p>
 </div>
 </div>
 </div>
@@ -688,8 +688,33 @@ This message shows that your installation appears to be working correctly.
 </li>
 </ul>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>El primer puerto que aparece el del host y el segundo el del contenedor</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>También podemos usar el parámetro <code>--name &lt;nombre&gt;</code> para darle un nombre al contenedor. De forma predeterminada, Docker asigna un nombre aleatorio a los contenedores creados. El asignar un nombre es útil para administrar posteriormente los contenedores (pausa, eliminación, &#8230;&#8203;)</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -718,6 +743,20 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago      Up 11 minutes       0.0.0.0:82-&gt;80/tcp       upbeat_stonebraker</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Los nombres generados para los contenedores son aleatorios si no se usa el parámetro <code>-name</code> al crearlos.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="truedetener-y-reanudar-un-contenedor"><a class="anchor" href="#truedetener-y-reanudar-un-contenedor"></a>2.6.2. Detener y reanudar un contenedor</h4>
@@ -743,8 +782,19 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stop d2f73e6acd51</code></pre>
 </div>
 </div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>Al hacer <code>docker ps</code> no se muestran los contenedores que estén detenidos.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -755,20 +805,6 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                        PORTS                    NAMES
 d2f73e6acd51        httpd               "httpd-foreground"       20 minutes ago      Exited (0) 2 minutes ago                               upbeat_stonebraker</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Los nombres generados para los contenedores son aleatorios.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect3">
@@ -822,8 +858,19 @@ root@d2f73e6acd51:/usr/local/apache2#</code></pre>
 </div>
 <div class="sect3">
 <h4 id="truecopia-de-datos"><a class="anchor" href="#truecopia-de-datos"></a>2.6.9. Copia de datos</h4>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>El almacenamiento en un contenedor no es persistente. Se eliminan los datos escritos en él tras su eliminación.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -884,24 +931,15 @@ $ docker rm d2f73e6acd51</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 82:80 httpd</code></pre>
 </div>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p><strong>Eliminación de todos los contenedores creados a partir de una imagen</strong></p>
-</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Eliminación de todos los contenedores creados a partir de una imagen</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker rm -f `docker ps -a | grep "wordpress" | awk '{print $1}'`</code></pre>
 </div>
 </div>
-</td>
-</tr>
-</table>
+</div>
 </div>
 </div>
 </div>
@@ -1132,6 +1170,13 @@ EXPOSE 80</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 83:80 -v=/Users/manolo/Documents/Desarrollo/SeminarioDocker/phpsimple/html:/var/www/html pruebaphp</code></pre>
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>También podemos hacer uso de la evaluación de órdenes con apóstrofes para obtener el path actual y añadirle sólo la carpeta <code>html</code>.</p>
 </div>
@@ -1139,6 +1184,10 @@ EXPOSE 80</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 83:80 -v=`pwd`/html:/var/www/html pruebaphp</code></pre>
 </div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -1214,13 +1263,13 @@ $ docker image rm &lt;image&gt;: Elimina una imagen local</code></pre>
 <p>Usaremos un archivo <code>docker-compose.yml</code> para configurar los servicios de la aplicación</p>
 </li>
 <li>
-<p>En un mismo host podemos tener varios entonos aislados en el mismo host. Compose usa nombres de proyecto para mantener a los entornos aislados. De forma predeterminada se usa el nombre del directorio desde donde se lanza la aplicación.</p>
+<p>En un mismo host podemos tener varios entonos aislados. Compose usa nombres de proyecto para mantener a los entornos aislados. De forma predeterminada se usa el nombre del directorio desde donde se lanza la aplicación.</p>
 </li>
 <li>
 <p><code>docker-compose --version</code> para obtener la versión y saber si está instalado.</p>
 </li>
 <li>
-<p>Instalación desde [<a href="https://docs.docker.com/compose/install/" class="bare">https://docs.docker.com/compose/install/</a>](<a href="https://docs.docker.com/compose/install/" class="bare">https://docs.docker.com/compose/install/</a>)</p>
+<p>Instalación desde <a href="https://docs.docker.com/compose/install">https://docs.docker.com/compose/install</a></p>
 </li>
 </ul>
 </div>
@@ -1229,10 +1278,10 @@ $ docker image rm &lt;image&gt;: Elimina una imagen local</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Crear el archivo <code>docker-compose.yml</code> con los servicios de la aplicación</p>
+<p>Crear el archivo <code>docker-compose.yml</code> con los servicios de la aplicación (p.e. php y mysql)</p>
 </li>
 <li>
-<p>Construir y lanzar el entorno con <code>docker-compose up -d</code></p>
+<p>Construir y lanzar el entorno en modo <em>dettached</em> con <code>docker-compose up -d</code></p>
 </li>
 <li>
 <p>Echar abajo el entorno con <code>docker-compose down</code></p>
@@ -1261,7 +1310,7 @@ $ docker-compose rm [-fs]   Borra los contedores parados. Con -fs los detiene y 
 <p>Aplicación que muestra un listado de clientes almacenado en una base de datos MySQL.</p>
 </li>
 <li>
-<p>Podemos distribuirla con un repositorio que incluya una carpeta <code>html</code> con la aplicación PHP.</p>
+<p>Podemos distribuirla con un repositorio que incluya una carpeta <code>html</code> con la aplicación PHP <a href="https://github.com/ualmtorres/customer_catalog.git">https://github.com/ualmtorres/customer_catalog.git</a>.</p>
 </li>
 <li>
 <p>Al iniciar el servicio MySQL se ejecutará un script de inicialización de la base de datos.</p>
@@ -1300,11 +1349,11 @@ services:
 </div>
 </div>
 <div class="paragraph">
-<p><code>index.php</code> [Descargar index.php](<a href="https://gist.githubusercontent.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1/raw/812f0db2da07037416db8967130eb16b16b5b88e/index.php" class="bare">https://gist.githubusercontent.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1/raw/812f0db2da07037416db8967130eb16b16b5b88e/index.php</a>)</p>
+<p><code>index.php</code> <a href="https://gist.githubusercontent.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1/raw/812f0db2da07037416db8967130eb16b16b5b88e/index.php">Descargar index.php</a></p>
 </div>
 <script src="https://gist.github.com/ualmtorres/0c9ba76eb22a35e328dbc322e6c100d1.js"></script>
 <div class="paragraph">
-<p><code>init.sql</code> [Descargar init.sql](<a href="https://gist.githubusercontent.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f/raw/448b00c44d7102d66077a393dad555585862f923/init.sql" class="bare">https://gist.githubusercontent.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f/raw/448b00c44d7102d66077a393dad555585862f923/init.sql</a>)</p>
+<p><code>init.sql</code> <a href="https://gist.githubusercontent.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f/raw/448b00c44d7102d66077a393dad555585862f923/init.sql">Descargar init.sql</a></p>
 </div>
 <script src="https://gist.github.com/ualmtorres/eb328b653fcc5964f976b22c320dc10f.js"></script>
 <div class="imageblock">
@@ -1318,11 +1367,27 @@ services:
 <div class="sect1">
 <h2 id="trueescalado-de-aplicaciones-con-docker-swarm"><a class="anchor" href="#trueescalado-de-aplicaciones-con-docker-swarm"></a>6. Escalado de aplicaciones con Docker Swarm</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>En aplicaciones distribuidas y con gran demanda podemos replicar contenedores en un servicio. Llegado el caso, necesitamos indicar la cantidad de contenedores que están ejecutando un servicio. También, ajustaremos la cantidad del recursos del host que se dedican a la ejecución de las réplicas. Un balanceador de carga se encargará de ir alternando los contenedores a los que se envían las peticiones.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>En aplicaciones distribuidas y con gran demanda podemos replicar contenedores en un servicio.</p>
+</li>
+<li>
+<p>Llegado el caso, necesitamos indicar la cantidad de contenedores que están ejecutando un servicio.</p>
+</li>
+<li>
+<p>También, ajustaremos la cantidad del recursos del host que se dedican a la ejecución de las réplicas.</p>
+</li>
+<li>
+<p>Un balanceador de carga se encargará de ir alternando los contenedores a los que se envían las peticiones.</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="trueorquestaci-n-de-contenedores"><a class="anchor" href="#trueorquestaci-n-de-contenedores"></a>6.1. Orquestación de contenedores</h3>
+<div class="paragraph">
+<p>Herramientas que nos ayudan en las tareas de:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1354,10 +1419,10 @@ services:
 <p>Docker Swarm (el que veremos en este seminario debido a su sencillez)</p>
 </li>
 <li>
-<p>Google Container Engine</p>
+<p>Kubernetes (el líder del momento)</p>
 </li>
 <li>
-<p>Kubernetes (el líder del momento)</p>
+<p>Google Container Engine (construido sobre Kubernetes)</p>
 </li>
 </ul>
 </div>
@@ -1377,6 +1442,12 @@ services:
 </li>
 <li>
 <p>Hay dos tipos de nodos: <em>manager</em> y <em>worker</em>.</p>
+</li>
+<li>
+<p>Los nodos <em>manager</em> se encargan de mantener el estado del cluster y de planificar los servicios.</p>
+</li>
+<li>
+<p>Los nodos <em>manager</em> sólo se encargan de ejecutar contenedores. De forma predeterminada, al definir un <em>manager</em> también es <em>worker</em>.</p>
 </li>
 <li>
 <p>La composición del <em>swarm</em> es dinámica. Se pueden añadir y eliminar nodos <em>worker</em> sobre la marcha según sea conveniente. También es posible añadir nuevos nodos <em>manager</em>.</p>
@@ -1537,7 +1608,27 @@ w72jaflcg7em        my_app_php.3          tutum/apache-php:latest           linu
 <div class="sect2">
 <h3 id="trueescalado-de-la-aplicaci-n"><a class="anchor" href="#trueescalado-de-la-aplicaci-n"></a>6.4. Escalado de la aplicación</h3>
 <div class="paragraph">
-<p>Para aumentar o disminiur en Docker Swarm el número de réplicas de un servicio basta con editar el archivo <code>docker-compose.yml</code> con el nuevo número de réplicas y volver a hacer el despliegue con</p>
+<p>Podemos aumentar o disminiur en Docker Swarm el número de réplicas de un servicio mediante comandos o volviendo a desplegar el stack modificando el número de réplicas.</p>
+</div>
+<div class="sect3">
+<h4 id="trueescalado-mediante-comandos"><a class="anchor" href="#trueescalado-mediante-comandos"></a>6.4.1. Escalado mediante comandos</h4>
+<div class="paragraph">
+<p>La sintaxis es
+<code>$ docker service scale &lt;SERVICE-ID&gt;=&lt;NUMBER-OF-TASKS&gt;</code></p>
+</div>
+<div class="paragraph">
+<p>Por ejemplo, para que el número de réplicas del servicio <code>php</code> del stack <code>my_app</code> sea 7 ejecutaríamos el comando</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker service scale php=7</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="trueescalado-volviendo-a-desplegar-el-stack"><a class="anchor" href="#trueescalado-volviendo-a-desplegar-el-stack"></a>6.4.2. Escalado volviendo a desplegar el stack</h4>
+<div class="paragraph">
+<p>Editar el archivo <code>docker-compose.yml</code> con el nuevo número de réplicas y volver a hacer el despliegue con</p>
 </div>
 <div class="paragraph">
 <p><code>docker stack deploy -c docker-compose.yml my_app</code></p>
@@ -1546,7 +1637,7 @@ w72jaflcg7em        my_app_php.3          tutum/apache-php:latest           linu
 <p>Esta operación de actualización del despliegue es la que también se usa para añadir nuevos servicios a un <em>stack</em>.</p>
 </div>
 <div class="paragraph">
-<p>Por ejemplo, probemos a aumentar a 5 el número de réplicas. Con <code>docker stack ps my_app</code> podemos ver los cambios, así como con <code>docker ps</code>, así como desde Visualizer.</p>
+<p>Por ejemplo, probemos a aumentar a 7 el número de réplicas. Con <code>docker stack ps my_app</code> podemos ver los cambios, así como con <code>docker ps</code>, así como desde Visualizer.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1560,8 +1651,9 @@ bae11deefc86        dockersamples/visualizer:stable   "npm start"         5 minu
 1fc9631de451        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.3.jd89jf59jy5k6scmxuh9w7bl1</code></pre>
 </div>
 </div>
+</div>
 <div class="sect3">
-<h4 id="trueapagado-de-la-aplicaci-n-y-del-swarm"><a class="anchor" href="#trueapagado-de-la-aplicaci-n-y-del-swarm"></a>6.4.1. Apagado de la aplicación y del swarm</h4>
+<h4 id="trueapagado-de-la-aplicaci-n-y-del-swarm"><a class="anchor" href="#trueapagado-de-la-aplicaci-n-y-del-swarm"></a>6.4.3. Apagado de la aplicación y del swarm</h4>
 <div class="paragraph">
 <p>Para eliminar el stack de dos servicios creado para este ejemplo ejecutamos el comando siguiente</p>
 </div>
@@ -1943,7 +2035,7 @@ export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-04 20:30:43 CEST
+Last updated 2018-06-05 10:00:54 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
