@@ -53,10 +53,36 @@ COLOCA A CONTINUACION LOS OBJETIVOS
 
 ## Conceptos básicos
 
+### El tópico
+
+image::./ItWorksOnMyMachine.jpg[]
+
+### Conviene no confundir
+
+.Contenedores El Morales es una empresa almeriense de alquiler de contenedores de obra
+image::./Morales.jpg[width=100%]
+
+.Dockers es una marca de prendas de ropa y calzado
+image::./Dockers.jpg[width=100%]
+
+.El Vallenato es un género musical colombiano
+image::./Vallenato.jpg[width=100%]
+
 ### Qué es Docker
 
 * Docker es una plataforma para que desarrolladores y administradores puedan desarrollar, desplegar y ejecutar aplicaciones en un entorno aislado denominado contenedor.
 * Docker permite separar las aplicaciones de la infraestructura acelerando el proceso de entrega de software a producción.
+* Proyecto open source creado en 2013 que hace uso de LXC (Linux Containers). LXC es un método de virtualización de a nivel de S.O.
+
+[TIP]
+====
+Docker permite empaquetar una aplicación con todas sus dependencias para que pueda ser ejecutada en plataformas diferentes. *El proceso de despliegue es rápido y repetible.*
+====
+
+```
+$ git clone https://github.com/ualmtorres/docker_customer_catalog.git
+$ cd docker_customer_catalog
+$ docker-compose -d up
 
 ### Docker vs Máquinas virtuales
 
@@ -74,6 +100,11 @@ image::DockerVsMV.png[]
 - Portables: Build local y ejecución en cualquier lugar.
 - Escalables: Aumento y distribución automática de réplicas de contenedores.
 - Apilables: Aumento del stack de servicios en caliente.
+
+[NOTE]
+====
+Docker supone una revolución en los entornos de CI/CD. Tras la actualización del repositorio de proyecto, se crean contenedores para pasar las pruebas, se construyen las nuevas imágenes y se despliega la nueva versión de la aplicación *sin parada del sistema*.
+====
 	
 ### Contenedores e imágenes
 
@@ -157,7 +188,7 @@ image::./Apache.png[]
 ### Funcionamiento básico con Docker
 
 .Funcionamiento básico con Docker
-image::./FuncionamientoBasico.png[]
+image::./FuncionamientoBasico.png[width=100%]
 
 ### Imágenes interesantes de Docker
 
@@ -385,6 +416,11 @@ VOLUME /data
 * Cada instrucción del `Dockerfile` genera una nueva capa (con la diferencia) en ese sistema de archivos
 * Al hacer `build` las capas existentes en local no se vuelven a crear
 
+[NOTE]
+====
+Una https://hub.docker.com/r/library/alpine/tags/[imagen comprimida de Alpine] está en torno a los 2 MB, mientras que una https://hub.docker.com/r/library/ubuntu/tags/[imagen comprimida de Ubuntu] está entre 40 y 80 MB
+====
+
 ### Ejemplo de contenedor para aplicaciones web en PHP
 
 Vamos a construir un contenedor que incluya de forma estática una aplicación (p.e. la última versión de la aplicación). El proceso a seguir es:
@@ -571,7 +607,7 @@ services:
 ++++
 
 .Aplicación web PHP que muestra listado de clientes almacenados en MySQL
-image::./CustomerCatalog.png[]
+image::./CustomerCatalog.png[width=100%]
 
 ## Escalado de aplicaciones con Docker Swarm
 
@@ -602,6 +638,8 @@ Herramientas que nos ayudan en las tareas de:
 * Docker Swarm propone que algunos de los conceptos de contenedores en un solo host sean válidos para convertirlo en un cluster (p.e. redes overlay VXLAN)
 * Un cluster de contenedores se ejecuta en un _swarm_ (enjambre). 
 * Un _swarm_ es una colección de Docker engines.
+
+image::./DockerSwarm.jpg[width=100%]
 
 * Docker Swarm permite crear y gestionar clusters de contenedores usando el archivo `docker-compose.yml`. 
 * Un _swarm_ está formado por nodos, que pueden ser máquinas físicas o virtuales. 
@@ -1129,19 +1167,6 @@ $ docker node update --availability active nodo2
 
 El nodo ahora podrá volver a recibir nuevas tareas
 
-## Pruebas de carga
-
-Para comprobar el efecto del número de contenedores sobre el rendimiento haremos un pequeño ejemplo sobre nuestra aplicación sencilla con https://httpd.apache.org/docs/2.4/programs/ab.html[Apache Benchmark]
-
-Número de peticiones atendidas por segundo según número de réplicas (1, 2, 4, 6, 8) y número de nodos (1, 2) (Test hecho con 10.000 peticiones y nivel de concurrencia 100)
-
-[width="100%",options="header,footer"]
-|====================
-|   | 1      | 2      | 4      | 6      | 8
-| 1 | 120.12 | 204.56 | 169.45 | 267.07 | 181.60  
-| 2 | 119.67 | 111.89 | 247.42 | 377.78 | 534.55 
-|====================
-
 ## Otras cosas interesantes
 
 ### El ecosistema Docker 
@@ -1212,15 +1237,17 @@ networks:
 Con microservicios: 
 
 * Establecemos un contrato, normalmente mediante una API REST, versionada para no romper funcionalidad a usuarios anteriores
-* ocupan un tamaño reducido y suelen realizar una tarea muy concreta
-    * Autenticación, 
-    * API REST. Toda la API vs cada endpoint
-    * Estadísticas consumo de recursos
-    * Exportar salida a central de logs
-    * ...
+* Ocupan un tamaño reducido y suelen realizar una tarea muy concreta
+    - Autenticación, 
+    - API REST. Toda la API vs cada endpoint
+    - Estadísticas consumo de recursos
+    - Exportar salida a central de logs
+    - ...
 * Dockerizar con cabeza
-    * Comenzamos pasando todo nuestro sistema o MV a un contenedor Docker. Con sólo eso ya conseguimos ejecutar nuestra sistema en distintas máquinas con distintos SO y configuraciones. 
-    * No intentar pasar de una vez de aplicación monlítica a microservicios diminutos
+    - Comenzamos pasando todo nuestro sistema o MV a un contenedor Docker. Con sólo eso ya conseguimos ejecutar nuestra sistema en distintas máquinas con distintos SO y configuraciones. 
+    - No intentar pasar de una vez de aplicación monlítica a microservicios diminutos
+
+image::./KeepCalmAndUseDocker.png[width=100%]
 
 ### Conexión a daemons Docker remotos
 
