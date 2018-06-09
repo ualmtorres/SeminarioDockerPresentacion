@@ -441,11 +441,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#trueantes-de-nada">2.1. Antes de nada</a></li>
 <li><a href="#truedocker-engine">2.2. Docker engine</a></li>
-<li><a href="#trueversi-n-y-primer-contenedor">2.3. Versión y primer contenedor</a></li>
+<li><a href="#trueel-hola-mundo">2.3. El Hola mundo</a></li>
 <li><a href="#truecrear-un-contenedor-apache">2.4. Crear un contenedor Apache</a></li>
 <li><a href="#truefuncionamiento-b-sico-con-docker">2.5. Funcionamiento básico con Docker</a></li>
-<li><a href="#trueoperaciones-sobre-contenedores">2.6. Operaciones sobre contenedores</a></li>
-<li><a href="#trueresumen-de-comandos-b-sicos-para-contenedores">2.7. Resumen de comandos básicos para contenedores</a></li>
+<li><a href="#trueim-genes-interesantes-de-docker">2.6. Imágenes interesantes de Docker</a></li>
+<li><a href="#trueoperaciones-sobre-contenedores">2.7. Operaciones sobre contenedores</a></li>
+<li><a href="#trueresumen-de-comandos-b-sicos-para-contenedores">2.8. Resumen de comandos básicos para contenedores</a></li>
 </ul>
 </li>
 <li><a href="#truecreaci-n-de-im-genes-propias">3. Creación de imágenes propias</a>
@@ -470,9 +471,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#trueorquestaci-n-de-contenedores">6.1. Orquestación de contenedores</a></li>
 <li><a href="#trueorquestadores-de-contenedores-m-s-populares">6.2. Orquestadores de contenedores más populares</a></li>
 <li><a href="#truedocker-swarm">6.3. Docker Swarm</a></li>
-<li><a href="#trueescalado-de-la-aplicaci-n">6.4. Escalado de la aplicación</a></li>
-<li><a href="#trueadministraci-n-de-docker-con-em-portainer-em">6.5. Administración de Docker con <em>Portainer</em></a></li>
-<li><a href="#trueresumen-de-los-comandos-para-em-swarms-em">6.6. Resumen de los comandos para <em>swarms</em></a></li>
+<li><a href="#truerecuperaci-n-autom-tica-ante-errores-em-self-healing-em">6.4. Recuperación automática ante errores (<em>Self-healing</em>)</a></li>
+<li><a href="#trueescalado-de-la-aplicaci-n">6.5. Escalado de la aplicación</a></li>
+<li><a href="#trueadministraci-n-de-docker-con-em-portainer-em">6.6. Administración de Docker con <em>Portainer</em></a></li>
+<li><a href="#trueresumen-de-los-comandos-para-em-swarms-em">6.7. Resumen de los comandos para <em>swarms</em></a></li>
 </ul>
 </li>
 <li><a href="#truedocker-machine">7. Docker machine</a>
@@ -481,12 +483,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#truecreaci-n-de-los-nodos-del-em-swarm-em">7.2. Creación de los nodos del <em>swarm</em></a></li>
 <li><a href="#truecomprobaci-n-del-em-swarm-em-creado">7.3. Comprobación del <em>swarm</em> creado</a></li>
 <li><a href="#truedespliegue-de-la-aplicaci-n-en-los-nodos">7.4. Despliegue de la aplicación en los nodos</a></li>
+<li><a href="#truedesalojo-de-un-nodo">7.5. Desalojo de un nodo</a></li>
 </ul>
 </li>
-<li><a href="#trueotras-operaciones-interesantes">8. Otras operaciones interesantes</a>
+<li><a href="#truepruebas-de-carga">8. Pruebas de carga</a></li>
+<li><a href="#trueotras-cosas-interesantes">9. Otras cosas interesantes</a>
 <ul class="sectlevel2">
-<li><a href="#truemicroservicios-y-contenedores">8.1. Microservicios y contenedores</a></li>
-<li><a href="#trueconexi-n-a-daemons-docker-remotos">8.2. Conexión a daemons Docker remotos</a></li>
+<li><a href="#trueel-ecosistema-docker">9.1. El ecosistema Docker</a></li>
+<li><a href="#trueuso-de-haproxy">9.2. Uso de HAProxy</a></li>
+<li><a href="#truemicroservicios-y-contenedores">9.3. Microservicios y contenedores</a></li>
+<li><a href="#trueconexi-n-a-daemons-docker-remotos">9.4. Conexión a daemons Docker remotos</a></li>
 </ul>
 </li>
 </ul>
@@ -506,13 +512,40 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="trueresumen"><a class="anchor" href="#trueresumen"></a>Resumen</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p></p>
+<p>Docker es un proyecto open source creado en 2013 y que ha supuesto una revolución para el desarrollo y despliegue de operaciones. Docker abstrae el hardware y el sistema operativo del host ejecutando las aplicaciones en contenedores, compartimentos aislados que contienen todos los recursos para una aplicación o servicio.</p>
+</div>
+<div class="paragraph">
+<p>En este seminario veremos cómo usar Docker para el desarrollo de aplicaciones sencillas, aprendiendo a crear servicios con <em>Docker Compose</em>, clusters con <em>Docker Swarm</em> e interactuar de forma remota con <em>Docker machine</em></p>
 </div>
 <div class="ulist">
 <div class="title">Objetivos</div>
 <ul>
 <li>
-<p>$$$</p>
+<p>Conocer los componentes básicos de Docker</p>
+</li>
+<li>
+<p>Crear contenedores a partir de imágenes de Docker Hub</p>
+</li>
+<li>
+<p>Aprender a usar <code>Dockerfile</code> para la creación de contenedores</p>
+</li>
+<li>
+<p>Crear imágenes</p>
+</li>
+<li>
+<p>Usar <em>Docker Compose</em> para construir entornos de contenedores</p>
+</li>
+<li>
+<p>Usar volúmenes para almacenamiento persistente</p>
+</li>
+<li>
+<p>Estudiar <em>Docker Swarm</em> para el escalado de aplicaciones</p>
+</li>
+<li>
+<p>Crear clusters con <em>Docker Machine</em></p>
+</li>
+<li>
+<p>Estudiar ejemplos de entornos elásticos</p>
 </li>
 </ul>
 </div>
@@ -587,7 +620,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>Una imagen es una plantilla con las instrucciones de creación de un contenedor Docker:</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Código</p>
 </li>
@@ -602,6 +636,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>Archivos de configuración</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -640,6 +677,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Docker Hub es un registro público de imágenes (Lugar donde se almacenan imágenes): <a href="https://hub.docker.com/">https://hub.docker.com</a></p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Docker Hub permite en su plan libre tener un repositorio privado de imágenes.
+También permite automatizar la construcción de imágenes y su despliegue con repositorios GitHub y Bitbucket</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -652,7 +704,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueversi-n-y-primer-contenedor"><a class="anchor" href="#trueversi-n-y-primer-contenedor"></a>2.3. Versión y primer contenedor</h3>
+<h3 id="trueel-hola-mundo"><a class="anchor" href="#trueel-hola-mundo"></a>2.3. El Hola mundo</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker --version
@@ -733,9 +785,52 @@ This message shows that your installation appears to be working correctly.
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueoperaciones-sobre-contenedores"><a class="anchor" href="#trueoperaciones-sobre-contenedores"></a>2.6. Operaciones sobre contenedores</h3>
+<h3 id="trueim-genes-interesantes-de-docker"><a class="anchor" href="#trueim-genes-interesantes-de-docker"></a>2.6. Imágenes interesantes de Docker</h3>
+<div class="paragraph">
+<p>En <a href="https://hub.docker.com/explore/">https://hub.docker.com/explore/</a> se encuentran las imágenes ordenadas por popularidad. Destacamos:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>alpine: Linux reducido</p>
+</li>
+<li>
+<p>nginx: Servidor web Nginx</p>
+</li>
+<li>
+<p>httpd: Servidor web Apache</p>
+</li>
+<li>
+<p>ubuntu: Ubuntu</p>
+</li>
+<li>
+<p>redis: Base de datos Redis (clave-valor)</p>
+</li>
+<li>
+<p>mongo: Base de datos MongoDB (documentos)</p>
+</li>
+<li>
+<p>mysql: Base de datos MySQL (relacional)</p>
+</li>
+<li>
+<p>postgres: Base de datos PostgreSQL (relaional)</p>
+</li>
+<li>
+<p>node: Node.js</p>
+</li>
+<li>
+<p>registry: Registro de imágenes on-premise</p>
+</li>
+<li>
+<p>php, elasticsearch, haproxy, wordpress, rabbitmq, python, openjdk, tomcat, jenkins, redmine, flink, spark, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trueoperaciones-sobre-contenedores"><a class="anchor" href="#trueoperaciones-sobre-contenedores"></a>2.7. Operaciones sobre contenedores</h3>
 <div class="sect3">
-<h4 id="truemostrar-contenedores"><a class="anchor" href="#truemostrar-contenedores"></a>2.6.1. Mostrar contenedores</h4>
+<h4 id="truemostrar-contenedores"><a class="anchor" href="#truemostrar-contenedores"></a>2.7.1. Mostrar contenedores</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps
@@ -759,7 +854,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 </div>
 </div>
 <div class="sect3">
-<h4 id="truedetener-y-reanudar-un-contenedor"><a class="anchor" href="#truedetener-y-reanudar-un-contenedor"></a>2.6.2. Detener y reanudar un contenedor</h4>
+<h4 id="truedetener-y-reanudar-un-contenedor"><a class="anchor" href="#truedetener-y-reanudar-un-contenedor"></a>2.7.2. Detener y reanudar un contenedor</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -776,7 +871,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 </div>
 </div>
 <div class="sect3">
-<h4 id="truedetener-el-contenedor"><a class="anchor" href="#truedetener-el-contenedor"></a>2.6.3. Detener el contenedor</h4>
+<h4 id="truedetener-el-contenedor"><a class="anchor" href="#truedetener-el-contenedor"></a>2.7.3. Detener el contenedor</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stop d2f73e6acd51</code></pre>
@@ -798,7 +893,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 </div>
 </div>
 <div class="sect3">
-<h4 id="truemostrar-todos-los-contenedores-tambi-n-los-detenidos"><a class="anchor" href="#truemostrar-todos-los-contenedores-tambi-n-los-detenidos"></a>2.6.4. Mostrar todos los contenedores, también los detenidos.</h4>
+<h4 id="truemostrar-todos-los-contenedores-tambi-n-los-detenidos"><a class="anchor" href="#truemostrar-todos-los-contenedores-tambi-n-los-detenidos"></a>2.7.4. Mostrar todos los contenedores, también los detenidos.</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps -a
@@ -808,7 +903,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       20 minutes ago 
 </div>
 </div>
 <div class="sect3">
-<h4 id="truereanudar-un-contenedor"><a class="anchor" href="#truereanudar-un-contenedor"></a>2.6.5. Reanudar un contenedor</h4>
+<h4 id="truereanudar-un-contenedor"><a class="anchor" href="#truereanudar-un-contenedor"></a>2.7.5. Reanudar un contenedor</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker start d2f73e6acd51</code></pre>
@@ -826,7 +921,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago    
 </div>
 </div>
 <div class="sect3">
-<h4 id="truedetener-todos-los-contenedores-en-ejecuci-n"><a class="anchor" href="#truedetener-todos-los-contenedores-en-ejecuci-n"></a>2.6.6. Detener todos los contenedores en ejecución</h4>
+<h4 id="truedetener-todos-los-contenedores-en-ejecuci-n"><a class="anchor" href="#truedetener-todos-los-contenedores-en-ejecuci-n"></a>2.7.6. Detener todos los contenedores en ejecución</h4>
 <div class="paragraph">
 <p>Primero obtenenemos los identificadores de los contenedores en ejecución con <code>docker ps -q</code>. Ese comando lo podemos encerrar entre apóstrofes y pasar su resultado a otro comando en la misma línea.</p>
 </div>
@@ -837,7 +932,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago    
 </div>
 </div>
 <div class="sect3">
-<h4 id="trueiniciar-una-lista-de-contenedores"><a class="anchor" href="#trueiniciar-una-lista-de-contenedores"></a>2.6.7. Iniciar una lista de contenedores</h4>
+<h4 id="trueiniciar-una-lista-de-contenedores"><a class="anchor" href="#trueiniciar-una-lista-de-contenedores"></a>2.7.7. Iniciar una lista de contenedores</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker start d2f73e6acd51 9811efbf6e45 178c2d03f2e7</code></pre>
@@ -845,7 +940,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago    
 </div>
 </div>
 <div class="sect3">
-<h4 id="trueabrir-un-terminal-en-un-contenedor"><a class="anchor" href="#trueabrir-un-terminal-en-un-contenedor"></a>2.6.8. Abrir un terminal en un contenedor</h4>
+<h4 id="trueabrir-un-terminal-en-un-contenedor"><a class="anchor" href="#trueabrir-un-terminal-en-un-contenedor"></a>2.7.8. Abrir un terminal en un contenedor</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker exec -it d2f73e6acd51 bash
@@ -857,7 +952,7 @@ root@d2f73e6acd51:/usr/local/apache2#</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="truecopia-de-datos"><a class="anchor" href="#truecopia-de-datos"></a>2.6.9. Copia de datos</h4>
+<h4 id="truecopia-de-datos"><a class="anchor" href="#truecopia-de-datos"></a>2.7.9. Copia de datos</h4>
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -907,7 +1002,7 @@ docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="trueeliminaci-n-de-un-contenedor"><a class="anchor" href="#trueeliminaci-n-de-un-contenedor"></a>2.6.10. Eliminación de un contenedor</h4>
+<h4 id="trueeliminaci-n-de-un-contenedor"><a class="anchor" href="#trueeliminaci-n-de-un-contenedor"></a>2.7.10. Eliminación de un contenedor</h4>
 <div class="paragraph">
 <p>Primero paramos el contenedor y luego lo eliminamos con <code>docker rm</code></p>
 </div>
@@ -944,7 +1039,7 @@ $ docker rm d2f73e6acd51</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueresumen-de-comandos-b-sicos-para-contenedores"><a class="anchor" href="#trueresumen-de-comandos-b-sicos-para-contenedores"></a>2.7. Resumen de comandos básicos para contenedores</h3>
+<h3 id="trueresumen-de-comandos-b-sicos-para-contenedores"><a class="anchor" href="#trueresumen-de-comandos-b-sicos-para-contenedores"></a>2.8. Resumen de comandos básicos para contenedores</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-sh" data-lang="sh">$ docker info
@@ -1432,27 +1527,77 @@ services:
 <div class="ulist">
 <ul>
 <li>
-<p>Docker Swarm permite crear y gestionar clusters de contenedores usando el archivo <code>docker-compose.yml</code>.</p>
+<p>Docker Swarm propone que algunos de los conceptos de contenedores en un solo host sean válidos para convertirlo en un cluster (p.e. redes overlay VXLAN)</p>
 </li>
 <li>
 <p>Un cluster de contenedores se ejecuta en un <em>swarm</em> (enjambre).</p>
+</li>
+<li>
+<p>Un <em>swarm</em> es una colección de Docker engines.</p>
+</li>
+<li>
+<p>Docker Swarm permite crear y gestionar clusters de contenedores usando el archivo <code>docker-compose.yml</code>.</p>
 </li>
 <li>
 <p>Un <em>swarm</em> está formado por nodos, que pueden ser máquinas físicas o virtuales.</p>
 </li>
 <li>
 <p>Hay dos tipos de nodos: <em>manager</em> y <em>worker</em>.</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Los nodos <em>manager</em> se encargan de mantener el estado del cluster y de planificar los servicios.</p>
 </li>
 <li>
-<p>Los nodos <em>manager</em> sólo se encargan de ejecutar contenedores. De forma predeterminada, al definir un <em>manager</em> también es <em>worker</em>.</p>
+<p>Los nodos <em>worker</em> sólo se encargan de ejecutar contenedores. De forma predeterminada, al definir un <em>manager</em> también es <em>worker</em>.</p>
 </li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Podemos hace que los <em>managers</em> no sean <em>workers</em> haciendo que su disponibilidad sea <code>drain</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker node update --availability drain</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Swarm llevará a otros nodos los trabajos en ejecución y no le asignará nuevos trabajos.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>La composición del <em>swarm</em> es dinámica. Se pueden añadir y eliminar nodos <em>worker</em> sobre la marcha según sea conveniente. También es posible añadir nuevos nodos <em>manager</em>.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Los nodos <em>worker</em> pueden ser promovidos a <em>manager</em> con <code>docker node promote</code> y los <em>manager</em> pueden ser degradados a <em>worker</em> con <code>docker node demote</code>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="truecreaci-n-del-swarm"><a class="anchor" href="#truecreaci-n-del-swarm"></a>6.3.1. Creación del swarm</h4>
@@ -1460,7 +1605,7 @@ services:
 <p><code>docker swarm init</code></p>
 </div>
 <div class="paragraph">
-<p>Esto crea un <em>swarm</em> configurando como <em>manager</em> la máquina sobre la que se ha ejecutado. Ademas, muestra las instrucciones para añadir nuevos nodos <em>worker</em> o <em>manager</em> al <em>swarm</em> creado.</p>
+<p>Esto crea un <em>swarm</em> de un nodo configurando como <em>manager</em> la máquina sobre la que se ha ejecutado. Ademas, muestra las instrucciones para añadir nuevos nodos <em>worker</em> o <em>manager</em> al <em>swarm</em> creado.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1471,6 +1616,28 @@ To add a worker to this swarm, run the following command:
 
     docker swarm join --token SWMTKN-1-6635wxwy4wun1fvedd3hq27cganpqh28g0zh72ufhrytduewe9-1f6wj5wlzmjyt87ykdoyb1nci 192.168.65.3:2377</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Si olvidamos este token lo podemos volver a obtener con</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker swarm join-token worker
+To add a worker to this swarm, run the following command:
+
+    SWMTKN-1-6635wxwy4wun1fvedd3hq27cganpqh28g0zh72ufhrytduewe9-1f6wj5wlzmjyt87ykdoyb1nci 192.168.65.3:2377</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -1586,8 +1753,8 @@ my_app              2</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE                             PORTS
-sdl5bm21s0yy        my_app_php          replicated          3/3                 tutum/apache-php:latest           *:80-&gt;80/tcp
-qz1ztlmg8v5c        my_app_visualizer   replicated          1/1                 dockersamples/visualizer:stable   *:8080-&gt;8080/tcp</code></pre>
+l6gwxu4asxb9        my_app_php          replicated          3/3                 tutum/apache-php:latest           *:80-&gt;80/tcp
+27l66joutbnd        my_app_visualizer   replicated          1/1                 dockersamples/visualizer:stable   *:8080-&gt;8080/tcp</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1597,21 +1764,61 @@ qz1ztlmg8v5c        my_app_visualizer   replicated          1/1                 
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stack ps my_app
 ID                  NAME                  IMAGE                             NODE                    DESIRED STATE       CURRENT STATE            ERROR               PORTS
-toe9wcw3dr3c        my_app_visualizer.1   dockersamples/visualizer:stable   linuxkit-025000000001   Running             Running 5 minutes ago
-muctyf72795z        my_app_php.1          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago
-2drnqiz0gnc4        my_app_php.2          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago
-w72jaflcg7em        my_app_php.3          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago</code></pre>
+0kc4fcw7bmva        my_app_visualizer.1   dockersamples/visualizer:stable   linuxkit-025000000001   Running             Running 6 minutes ago
+ueb5qs8kb0u6        my_app_php.1          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago
+uejgm1a4035i        my_app_php.2          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago
+nb0cbp5jhail        my_app_php.3          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueescalado-de-la-aplicaci-n"><a class="anchor" href="#trueescalado-de-la-aplicaci-n"></a>6.4. Escalado de la aplicación</h3>
+<h3 id="truerecuperaci-n-autom-tica-ante-errores-em-self-healing-em"><a class="anchor" href="#truerecuperaci-n-autom-tica-ante-errores-em-self-healing-em"></a>6.4. Recuperación automática ante errores (<em>Self-healing</em>)</h3>
+<div class="paragraph">
+<p>Veamos como al realizar una operación <code>kill</code> sobre uno de los contenedores, tras unos instantes vuelve a crearse un nuevo contenedor en su puesto, garantizando el número de réplicas especificado.</p>
+</div>
+<div class="paragraph">
+<p>Primero mostramos los contenedores actuales</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker ps
+CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
+ef0248683123        dockersamples/visualizer:stable   "npm start"         12 minutes ago      Up 12 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
+4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
+06a6011f4407        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.3.nb0cbp5jhailiu3ee2bbvkbr7</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ahora lanzamos un <code>kill</code> sobre el tercer contenedor <code>06a6011f4407</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker kill 06a6011f4407</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tras unos instantes habrá un nuevo contenedor en su puesto</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker ps
+CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
+847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           5 seconds ago       Up 4 seconds        80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+ef0248683123        dockersamples/visualizer:stable   "npm start"         14 minutes ago      Up 14 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
+4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trueescalado-de-la-aplicaci-n"><a class="anchor" href="#trueescalado-de-la-aplicaci-n"></a>6.5. Escalado de la aplicación</h3>
 <div class="paragraph">
 <p>Podemos aumentar o disminiur en Docker Swarm el número de réplicas de un servicio mediante comandos o volviendo a desplegar el stack modificando el número de réplicas.</p>
 </div>
 <div class="sect3">
-<h4 id="trueescalado-mediante-comandos"><a class="anchor" href="#trueescalado-mediante-comandos"></a>6.4.1. Escalado mediante comandos</h4>
+<h4 id="trueescalado-mediante-comandos"><a class="anchor" href="#trueescalado-mediante-comandos"></a>6.5.1. Escalado mediante comandos</h4>
 <div class="paragraph">
 <p>La sintaxis es
 <code>$ docker service scale &lt;SERVICE-ID&gt;=&lt;NUMBER-OF-TASKS&gt;</code></p>
@@ -1621,12 +1828,34 @@ w72jaflcg7em        my_app_php.3          tutum/apache-php:latest           linu
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker service scale php=7</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker service scale my_app_php=7
+my_app_php scaled to 7
+overall progress: 7 out of 7 tasks
+1/7: running   [==================================================&gt;]
+2/7: running   [==================================================&gt;]
+3/7: running   [==================================================&gt;]
+4/7: running   [==================================================&gt;]
+5/7: running   [==================================================&gt;]
+6/7: running   [==================================================&gt;]
+7/7: running   [==================================================&gt;]
+verify: Service converged
+
+
+$ docker ps
+CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
+81d00cc913c9        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.7.tjknquh9jkj8bey90pisul2fw
+0f9d8ba7b254        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
+226c60af9984        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 45 seconds       80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
+e98b5194787b        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 42 seconds       80/tcp              my_app_php.6.je2gqb380r3f6hcb6w9sd081q
+847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           11 minutes ago      Up 11 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+ef0248683123        dockersamples/visualizer:stable   "npm start"         25 minutes ago      Up 25 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
+4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="trueescalado-volviendo-a-desplegar-el-stack"><a class="anchor" href="#trueescalado-volviendo-a-desplegar-el-stack"></a>6.4.2. Escalado volviendo a desplegar el stack</h4>
+<h4 id="trueescalado-volviendo-a-desplegar-el-stack"><a class="anchor" href="#trueescalado-volviendo-a-desplegar-el-stack"></a>6.5.2. Escalado volviendo a desplegar el stack</h4>
 <div class="paragraph">
 <p>Editar el archivo <code>docker-compose.yml</code> con el nuevo número de réplicas y volver a hacer el despliegue con</p>
 </div>
@@ -1637,23 +1866,23 @@ w72jaflcg7em        my_app_php.3          tutum/apache-php:latest           linu
 <p>Esta operación de actualización del despliegue es la que también se usa para añadir nuevos servicios a un <em>stack</em>.</p>
 </div>
 <div class="paragraph">
-<p>Por ejemplo, probemos a aumentar a 7 el número de réplicas. Con <code>docker stack ps my_app</code> podemos ver los cambios, así como con <code>docker ps</code>, así como desde Visualizer.</p>
+<p>Por ejemplo, probemos a reducir a 5 el número de réplicas. Con <code>docker stack ps my_app</code> podemos ver los cambios, así como con <code>docker ps</code>, así como desde Visualizer.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
-c4601bf19e93        tutum/apache-php:latest           "/run.sh"           12 seconds ago      Up 17 seconds       80/tcp              my_app_php.4.w5rimht8gjwu0cuqw5dl8oj3g
-88a6658914e2        tutum/apache-php:latest           "/run.sh"           12 seconds ago      Up 18 seconds       80/tcp              my_app_php.5.qqi6rr048v4rjorgekh21cbzw
-bae11deefc86        dockersamples/visualizer:stable   "npm start"         5 minutes ago       Up 5 minutes        8080/tcp            my_app_visualizer.1.lqgs068de4twhhjlnjppxslt7
-295087ef5699        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.1.ezkg7sltzp9epcbdznxtvuw0j
-4fd213e5b091        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.2.3nas4lrvuoangkgrgovcycfzd
-1fc9631de451        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.3.jd89jf59jy5k6scmxuh9w7bl1</code></pre>
+0f9d8ba7b254        tutum/apache-php:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
+226c60af9984        tutum/apache-php:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
+847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           13 minutes ago      Up 13 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+ef0248683123        dockersamples/visualizer:stable   "npm start"         27 minutes ago      Up 27 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
+4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="trueapagado-de-la-aplicaci-n-y-del-swarm"><a class="anchor" href="#trueapagado-de-la-aplicaci-n-y-del-swarm"></a>6.4.3. Apagado de la aplicación y del swarm</h4>
+<h4 id="trueapagado-de-la-aplicaci-n-y-del-swarm"><a class="anchor" href="#trueapagado-de-la-aplicaci-n-y-del-swarm"></a>6.5.3. Apagado de la aplicación y del swarm</h4>
 <div class="paragraph">
 <p>Para eliminar el stack de dos servicios creado para este ejemplo ejecutamos el comando siguiente</p>
 </div>
@@ -1669,7 +1898,7 @@ bae11deefc86        dockersamples/visualizer:stable   "npm start"         5 minu
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueadministraci-n-de-docker-con-em-portainer-em"><a class="anchor" href="#trueadministraci-n-de-docker-con-em-portainer-em"></a>6.5. Administración de Docker con <em>Portainer</em></h3>
+<h3 id="trueadministraci-n-de-docker-con-em-portainer-em"><a class="anchor" href="#trueadministraci-n-de-docker-con-em-portainer-em"></a>6.6. Administración de Docker con <em>Portainer</em></h3>
 <div class="paragraph">
 <p><em>Portainer</em> es una Web UI sencilla y potente para administración de entornos Docker locales y remotos. Permite la administración de stacks, servicios, contenedores, imágenes, redes y volúmenes.</p>
 </div>
@@ -1687,7 +1916,7 @@ services:
     volumes:
       - ./html:/var/www/html
     deploy:
-      replicas: 5
+      replicas: 3
       resources:
         limits:
           cpus: "0.1"
@@ -1728,7 +1957,7 @@ $ docker stack deploy -c docker-compose.yml portainer</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueresumen-de-los-comandos-para-em-swarms-em"><a class="anchor" href="#trueresumen-de-los-comandos-para-em-swarms-em"></a>6.6. Resumen de los comandos para <em>swarms</em></h3>
+<h3 id="trueresumen-de-los-comandos-para-em-swarms-em"><a class="anchor" href="#trueresumen-de-los-comandos-para-em-swarms-em"></a>6.7. Resumen de los comandos para <em>swarms</em></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker swarm init             Inicialización de swarm y del nodo manager
@@ -1961,13 +2190,210 @@ networks:
 <div class="title">Figure 9. Cluster de dos nodos con 4 réplicas del servicio <code>php</code></div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="truedesalojo-de-un-nodo"><a class="anchor" href="#truedesalojo-de-un-nodo"></a>7.5. Desalojo de un nodo</h3>
+<div class="paragraph">
+<p>Para finalizar vamos a ver cómo desalojar un nodo (p.e. debido a una operación de mantenimiento en uno de los servidores del <em>swarm</em>).</p>
+</div>
+<div class="paragraph">
+<p>Por ejemplo, veamos como desalojar el nodo <em>worker</em> <code>nodo2</code>.</p>
+</div>
+<div class="paragraph">
+<p>Haremos esta operación directamente desde el nodo <em>manager</em>, aunque se podría hacer desde otro nodo, o incluso de forma remota con <code>docker-machine</code>. Tras iniciar sesión en <code>nodo1</code> primero veremos el estado de los servicios y los nodos en los que se están ejecutando.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker service ps my_app_php
+ID                  NAME                IMAGE                     NODE                DESIRED STATE       CURRENT STATE         ERROR                              PORTS
+phqzhyvrn2cs        my_app_php.1        tutum/apache-php:latest   nodo1               Running             Running 5 days ago
+7tcammel94a8        my_app_php.2        tutum/apache-php:latest   nodo2               Running             Running 5 days ago
+5y969fj92o5g        my_app_php.3        tutum/apache-php:latest   nodo1               Running             Running 5 days ago
+m7cjujgg08bw        my_app_php.4        tutum/apache-php:latest   nodo2               Running             Running 5 days ago</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>haremos la operación <code>drain</code> para desalojar el <code>nodo2</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker node update --availability drain nodo2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Al comprobar el estado del servicio veremos que ahora todos los contenedores han pasado a <code>nodo1</code> manteniendo el número de réplicas que tuviésemos.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker service ps my_app_php
+ID                  NAME                IMAGE                     NODE                DESIRED STATE       CURRENT STATE            ERROR                              PORTS
+phqzhyvrn2cs        my_app_php.1        tutum/apache-php:latest   nodo1               Running             Running 5 days ago
+zqb89jdjraz7        my_app_php.2        tutum/apache-php:latest   nodo1               Running             Starting 2 seconds ago
+5y969fj92o5g        my_app_php.3        tutum/apache-php:latest   nodo1               Running             Running 5 days ago
+6q9955ce8fdw        my_app_php.4        tutum/apache-php:latest   nodo1               Running             Starting 3 seconds ago</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Con Visualizer podemos ver de forma más gráfica cómo se ha desalojado el nodo</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/VisualizerDrain.png" alt="VisualizerDrain.png">
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez finalizada la operación de mantenimiento volveríamos a poner el nodo como activo (<code>--availability active</code>)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ docker node update --availability active nodo2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El nodo ahora podrá volver a recibir nuevas tareas</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="trueotras-operaciones-interesantes"><a class="anchor" href="#trueotras-operaciones-interesantes"></a>8. Otras operaciones interesantes</h2>
+<h2 id="truepruebas-de-carga"><a class="anchor" href="#truepruebas-de-carga"></a>8. Pruebas de carga</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para comprobar el efecto del número de contenedores sobre el rendimiento haremos un pequeño ejemplo sobre nuestra aplicación sencilla con <a href="https://httpd.apache.org/docs/2.4/programs/ab.html">Apache Benchmark</a></p>
+</div>
+<div class="paragraph">
+<p>Número de peticiones atendidas por segundo según número de réplicas (1, 2, 4, 6, 8) y número de nodos (1, 2) (Test hecho con 10.000 peticiones y nivel de concurrencia 100)</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">1</th>
+<th class="tableblock halign-left valign-top">2</th>
+<th class="tableblock halign-left valign-top">4</th>
+<th class="tableblock halign-left valign-top">6</th>
+<th class="tableblock halign-left valign-top">8</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">119.67</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">111.89</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">247.42</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">377.78</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">534.55</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">120.12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">204.56</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">169.45</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">267.07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">181.60</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trueotras-cosas-interesantes"><a class="anchor" href="#trueotras-cosas-interesantes"></a>9. Otras cosas interesantes</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="truemicroservicios-y-contenedores"><a class="anchor" href="#truemicroservicios-y-contenedores"></a>8.1. Microservicios y contenedores</h3>
+<h3 id="trueel-ecosistema-docker"><a class="anchor" href="#trueel-ecosistema-docker"></a>9.1. El ecosistema Docker</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/DockerEcosystem.png" alt="DockerEcosystem.png" width="100%">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trueuso-de-haproxy"><a class="anchor" href="#trueuso-de-haproxy"></a>9.2. Uso de HAProxy</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>docker-compose.yml
+version: '3'
+services:
+  php:
+    image: tutum/apache-php
+    ports:
+      - "80"
+    environment:
+     - SERVICE_PORTS=80 <i class="conum" data-value="1"></i><b>(1)</b>
+    volumes:
+      - ./html:/var/www/html
+    deploy:
+      replicas: 6
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  proxy: <i class="conum" data-value="2"></i><b>(2)</b>
+    image: dockercloud/haproxy
+    depends_on:
+      - php <i class="conum" data-value="3"></i><b>(3)</b>
+    environment:
+      - BALANCE=leastconn <i class="conum" data-value="4"></i><b>(4)</b>
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    networks:
+      - webnet
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+networks:
+  webnet:</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Cambio en la configuración de puertos para usar HAProxy</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Servicio <code>proxy</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>No crear el servicio <code>proxy</code> hasta que no se haya creado el <code>php</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Usa la política de balanceo <em>least connections</em> en lugar de la <em>round robin</em> predeterminada</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="truemicroservicios-y-contenedores"><a class="anchor" href="#truemicroservicios-y-contenedores"></a>9.3. Microservicios y contenedores</h3>
 <div class="paragraph">
 <p>Con microservicios:</p>
 </div>
@@ -2007,7 +2433,7 @@ networks:
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueconexi-n-a-daemons-docker-remotos"><a class="anchor" href="#trueconexi-n-a-daemons-docker-remotos"></a>8.2. Conexión a daemons Docker remotos</h3>
+<h3 id="trueconexi-n-a-daemons-docker-remotos"><a class="anchor" href="#trueconexi-n-a-daemons-docker-remotos"></a>9.4. Conexión a daemons Docker remotos</h3>
 <div class="paragraph">
 <p>Util para conectarnos desde nuestro equipo al Docker de producción o al de  pruebas</p>
 </div>
@@ -2041,7 +2467,7 @@ export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-05 12:28:46 CEST
+Last updated 2018-06-09 10:17:58 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

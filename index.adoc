@@ -29,15 +29,24 @@ image::di.png[]
 ////
 COLOCA A CONTINUACION EL RESUMEN
 ////
-$$$$
+Docker es un proyecto open source creado en 2013 y que ha supuesto una revolución para el desarrollo y despliegue de operaciones. Docker abstrae el hardware y el sistema operativo del host ejecutando las aplicaciones en contenedores, compartimentos aislados que contienen todos los recursos para una aplicación o servicio.
+
+En este seminario veremos cómo usar Docker para el desarrollo de aplicaciones sencillas, aprendiendo a crear servicios con _Docker Compose_, clusters con _Docker Swarm_ e interactuar de forma remota con _Docker machine_
 
 
 ////
 COLOCA A CONTINUACION LOS OBJETIVOS
 ////
 .Objetivos
-* $$$
-
+* Conocer los componentes básicos de Docker
+* Crear contenedores a partir de imágenes de Docker Hub
+* Aprender a usar `Dockerfile` para la creación de contenedores 
+* Crear imágenes 
+* Usar _Docker Compose_ para construir entornos de contenedores
+* Usar volúmenes para almacenamiento persistente
+* Estudiar _Docker Swarm_ para el escalado de aplicaciones
+* Crear clusters con _Docker Machine_
+* Estudiar ejemplos de entornos elásticos
 
 // Entrar en modo numerado de apartados
 :numbered:
@@ -68,8 +77,8 @@ image::DockerVsMV.png[]
 	
 ### Contenedores e imágenes
 
-- Un contenedor se lanza ejecutando una imagen.
-- Una imagen es una plantilla con las instrucciones de creación de un contenedor Docker:
+* Un contenedor se lanza ejecutando una imagen.
+* Una imagen es una plantilla con las instrucciones de creación de un contenedor Docker:
     - Código
     - Runtime
     - Librerías
@@ -94,12 +103,18 @@ Obtenemos:
 
 Docker Hub es un registro público de imágenes (Lugar donde se almacenan imágenes): https://hub.docker.com/[https://hub.docker.com] 
 
+[NOTE]
+====
+Docker Hub permite en su plan libre tener un repositorio privado de imágenes.
+También permite automatizar la construcción de imágenes y su despliegue con repositorios GitHub y Bitbucket
+====
+
 ### Docker engine
 
 .Componentes de Docker Engine
 image::./DockerEngine.png[]
 
-### Versión y primer contenedor
+### El Hola mundo
 
 ```bash
 $ docker --version
@@ -143,6 +158,22 @@ image::./Apache.png[]
 
 .Funcionamiento básico con Docker
 image::./FuncionamientoBasico.png[]
+
+### Imágenes interesantes de Docker
+
+En https://hub.docker.com/explore/[https://hub.docker.com/explore/] se encuentran las imágenes ordenadas por popularidad. Destacamos:
+
+* alpine: Linux reducido
+* nginx: Servidor web Nginx
+* httpd: Servidor web Apache
+* ubuntu: Ubuntu
+* redis: Base de datos Redis (clave-valor)
+* mongo: Base de datos MongoDB (documentos)
+* mysql: Base de datos MySQL (relacional)
+* postgres: Base de datos PostgreSQL (relaional)
+* node: Node.js
+* registry: Registro de imágenes on-premise
+* php, elasticsearch, haproxy, wordpress, rabbitmq, python, openjdk, tomcat, jenkins, redmine, flink, spark, ...
 
 ### Operaciones sobre contenedores
 
@@ -568,19 +599,39 @@ Herramientas que nos ayudan en las tareas de:
 
 ### Docker Swarm 
 
-* Docker Swarm permite crear y gestionar clusters de contenedores usando el archivo `docker-compose.yml`. 
+* Docker Swarm propone que algunos de los conceptos de contenedores en un solo host sean válidos para convertirlo en un cluster (p.e. redes overlay VXLAN)
 * Un cluster de contenedores se ejecuta en un _swarm_ (enjambre). 
+* Un _swarm_ es una colección de Docker engines.
+
+* Docker Swarm permite crear y gestionar clusters de contenedores usando el archivo `docker-compose.yml`. 
 * Un _swarm_ está formado por nodos, que pueden ser máquinas físicas o virtuales. 
 * Hay dos tipos de nodos: _manager_ y _worker_.
-* Los nodos _manager_ se encargan de mantener el estado del cluster y de planificar los servicios.
-* Los nodos _manager_ sólo se encargan de ejecutar contenedores. De forma predeterminada, al definir un _manager_ también es _worker_.
+    - Los nodos _manager_ se encargan de mantener el estado del cluster y de planificar los servicios.
+    - Los nodos _worker_ sólo se encargan de ejecutar contenedores. De forma predeterminada, al definir un _manager_ también es _worker_.
+    
+[NOTE]
+====
+Podemos hace que los _managers_ no sean _workers_ haciendo que su disponibilidad sea `drain`  
+
+```
+$ docker node update --availability drain
+```
+
+Swarm llevará a otros nodos los trabajos en ejecución y no le asignará nuevos trabajos.
+====
+
 * La composición del _swarm_ es dinámica. Se pueden añadir y eliminar nodos _worker_ sobre la marcha según sea conveniente. También es posible añadir nuevos nodos _manager_.
+
+[NOTE]
+====
+Los nodos _worker_ pueden ser promovidos a _manager_ con `docker node promote` y los _manager_ pueden ser degradados a _worker_ con `docker node demote`.
+====
 
 #### Creación del swarm
 
 `docker swarm init`
 
-Esto crea un _swarm_ configurando como _manager_ la máquina sobre la que se ha ejecutado. Ademas, muestra las instrucciones para añadir nuevos nodos _worker_ o _manager_ al _swarm_ creado.
+Esto crea un _swarm_ de un nodo configurando como _manager_ la máquina sobre la que se ha ejecutado. Ademas, muestra las instrucciones para añadir nuevos nodos _worker_ o _manager_ al _swarm_ creado.
 
 ```sh
 $ docker swarm init
@@ -590,6 +641,18 @@ To add a worker to this swarm, run the following command:
 
     docker swarm join --token SWMTKN-1-6635wxwy4wun1fvedd3hq27cganpqh28g0zh72ufhrytduewe9-1f6wj5wlzmjyt87ykdoyb1nci 192.168.65.3:2377
 ```
+
+[NOTE]
+====
+Si olvidamos este token lo podemos volver a obtener con 
+
+```
+$ docker swarm join-token worker
+To add a worker to this swarm, run the following command:
+
+    SWMTKN-1-6635wxwy4wun1fvedd3hq27cganpqh28g0zh72ufhrytduewe9-1f6wj5wlzmjyt87ykdoyb1nci 192.168.65.3:2377
+```
+====
 
 #### Definición de los servicios y réplicas
 
@@ -674,8 +737,8 @@ Con `docker service ls` vemos los distintos servicios y la cantidad y estado de 
 ```bash
 $ docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE                             PORTS
-sdl5bm21s0yy        my_app_php          replicated          3/3                 tutum/apache-php:latest           *:80->80/tcp
-qz1ztlmg8v5c        my_app_visualizer   replicated          1/1                 dockersamples/visualizer:stable   *:8080->8080/tcp
+l6gwxu4asxb9        my_app_php          replicated          3/3                 tutum/apache-php:latest           *:80->80/tcp
+27l66joutbnd        my_app_visualizer   replicated          1/1                 dockersamples/visualizer:stable   *:8080->8080/tcp
 ```
 
 Con `docker stack ps my_app` vemos el estado de cada una de las tareas (contenedores) del _stack_.
@@ -683,11 +746,44 @@ Con `docker stack ps my_app` vemos el estado de cada una de las tareas (contened
 ```bash
 $ docker stack ps my_app
 ID                  NAME                  IMAGE                             NODE                    DESIRED STATE       CURRENT STATE            ERROR               PORTS
-toe9wcw3dr3c        my_app_visualizer.1   dockersamples/visualizer:stable   linuxkit-025000000001   Running             Running 5 minutes ago                        
-muctyf72795z        my_app_php.1          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago                       
-2drnqiz0gnc4        my_app_php.2          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago                       
-w72jaflcg7em        my_app_php.3          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 25 minutes ago        
+0kc4fcw7bmva        my_app_visualizer.1   dockersamples/visualizer:stable   linuxkit-025000000001   Running             Running 6 minutes ago                       
+ueb5qs8kb0u6        my_app_php.1          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago                       
+uejgm1a4035i        my_app_php.2          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago                       
+nb0cbp5jhail        my_app_php.3          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago         
 ```
+
+### Recuperación automática ante errores (_Self-healing_)
+
+Veamos como al realizar una operación `kill` sobre uno de los contenedores, tras unos instantes vuelve a crearse un nuevo contenedor en su puesto, garantizando el número de réplicas especificado.
+
+Primero mostramos los contenedores actuales
+
+```
+$ docker ps
+CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
+ef0248683123        dockersamples/visualizer:stable   "npm start"         12 minutes ago      Up 12 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
+4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
+06a6011f4407        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.3.nb0cbp5jhailiu3ee2bbvkbr7
+```
+
+Ahora lanzamos un `kill` sobre el tercer contenedor `06a6011f4407`
+
+```
+$ docker kill 06a6011f4407
+```
+
+Tras unos instantes habrá un nuevo contenedor en su puesto
+
+```
+$ docker ps
+CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
+847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           5 seconds ago       Up 4 seconds        80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+ef0248683123        dockersamples/visualizer:stable   "npm start"         14 minutes ago      Up 14 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
+4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
+```
+
 
 ### Escalado de la aplicación
 
@@ -701,8 +797,31 @@ La sintaxis es
 Por ejemplo, para que el número de réplicas del servicio `php` del stack `my_app` sea 7 ejecutaríamos el comando
 
 ```bash
-$ docker service scale php=7
+$ docker service scale my_app_php=7
+my_app_php scaled to 7
+overall progress: 7 out of 7 tasks 
+1/7: running   [==================================================>] 
+2/7: running   [==================================================>] 
+3/7: running   [==================================================>] 
+4/7: running   [==================================================>] 
+5/7: running   [==================================================>] 
+6/7: running   [==================================================>] 
+7/7: running   [==================================================>] 
+verify: Service converged 
+
+
+$ docker ps
+CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
+81d00cc913c9        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.7.tjknquh9jkj8bey90pisul2fw
+0f9d8ba7b254        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
+226c60af9984        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 45 seconds       80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
+e98b5194787b        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 42 seconds       80/tcp              my_app_php.6.je2gqb380r3f6hcb6w9sd081q
+847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           11 minutes ago      Up 11 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+ef0248683123        dockersamples/visualizer:stable   "npm start"         25 minutes ago      Up 25 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
+4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
 ```
+
 
 #### Escalado volviendo a desplegar el stack
 
@@ -712,17 +831,17 @@ Editar el archivo `docker-compose.yml` con el nuevo número de réplicas y volve
 
 Esta operación de actualización del despliegue es la que también se usa para añadir nuevos servicios a un _stack_.
 
-Por ejemplo, probemos a aumentar a 7 el número de réplicas. Con `docker stack ps my_app` podemos ver los cambios, así como con `docker ps`, así como desde Visualizer.
+Por ejemplo, probemos a reducir a 5 el número de réplicas. Con `docker stack ps my_app` podemos ver los cambios, así como con `docker ps`, así como desde Visualizer.
 
 ```bash
 $ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
-c4601bf19e93        tutum/apache-php:latest           "/run.sh"           12 seconds ago      Up 17 seconds       80/tcp              my_app_php.4.w5rimht8gjwu0cuqw5dl8oj3g
-88a6658914e2        tutum/apache-php:latest           "/run.sh"           12 seconds ago      Up 18 seconds       80/tcp              my_app_php.5.qqi6rr048v4rjorgekh21cbzw
-bae11deefc86        dockersamples/visualizer:stable   "npm start"         5 minutes ago       Up 5 minutes        8080/tcp            my_app_visualizer.1.lqgs068de4twhhjlnjppxslt7
-295087ef5699        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.1.ezkg7sltzp9epcbdznxtvuw0j
-4fd213e5b091        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.2.3nas4lrvuoangkgrgovcycfzd
-1fc9631de451        tutum/apache-php:latest           "/run.sh"           5 minutes ago       Up 5 minutes        80/tcp              my_app_php.3.jd89jf59jy5k6scmxuh9w7bl1
+0f9d8ba7b254        tutum/apache-php:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
+226c60af9984        tutum/apache-php:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
+847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           13 minutes ago      Up 13 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+ef0248683123        dockersamples/visualizer:stable   "npm start"         27 minutes ago      Up 27 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
+4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
 ```
 
 #### Apagado de la aplicación y del swarm
@@ -751,7 +870,7 @@ services:
     volumes:
       - ./html:/var/www/html
     deploy:
-      replicas: 5
+      replicas: 3
       resources:
         limits:
           cpus: "0.1"
@@ -964,7 +1083,129 @@ networks:
 .Cluster de dos nodos con 4 réplicas del servicio `php`
 image::./VisualizerSwarm.png[]
 
-## Otras operaciones interesantes
+### Desalojo de un nodo
+
+Para finalizar vamos a ver cómo desalojar un nodo (p.e. debido a una operación de mantenimiento en uno de los servidores del _swarm_). 
+
+Por ejemplo, veamos como desalojar el nodo _worker_ `nodo2`.
+
+Haremos esta operación directamente desde el nodo _manager_, aunque se podría hacer desde otro nodo, o incluso de forma remota con `docker-machine`. Tras iniciar sesión en `nodo1` primero veremos el estado de los servicios y los nodos en los que se están ejecutando.
+
+```
+$ docker service ps my_app_php
+ID                  NAME                IMAGE                     NODE                DESIRED STATE       CURRENT STATE         ERROR                              PORTS
+phqzhyvrn2cs        my_app_php.1        tutum/apache-php:latest   nodo1               Running             Running 5 days ago                                       
+7tcammel94a8        my_app_php.2        tutum/apache-php:latest   nodo2               Running             Running 5 days ago                                       
+5y969fj92o5g        my_app_php.3        tutum/apache-php:latest   nodo1               Running             Running 5 days ago                                       
+m7cjujgg08bw        my_app_php.4        tutum/apache-php:latest   nodo2               Running             Running 5 days ago          
+```
+
+haremos la operación `drain` para desalojar el `nodo2`
+
+```
+$ docker node update --availability drain nodo2
+```
+
+Al comprobar el estado del servicio veremos que ahora todos los contenedores han pasado a `nodo1` manteniendo el número de réplicas que tuviésemos.
+
+```
+$ docker service ps my_app_php
+ID                  NAME                IMAGE                     NODE                DESIRED STATE       CURRENT STATE            ERROR                              PORTS
+phqzhyvrn2cs        my_app_php.1        tutum/apache-php:latest   nodo1               Running             Running 5 days ago                                          
+zqb89jdjraz7        my_app_php.2        tutum/apache-php:latest   nodo1               Running             Starting 2 seconds ago                                      
+5y969fj92o5g        my_app_php.3        tutum/apache-php:latest   nodo1               Running             Running 5 days ago                                          
+6q9955ce8fdw        my_app_php.4        tutum/apache-php:latest   nodo1               Running             Starting 3 seconds ago
+```
+
+Con Visualizer podemos ver de forma más gráfica cómo se ha desalojado el nodo
+
+image::./VisualizerDrain.png[]
+
+Una vez finalizada la operación de mantenimiento volveríamos a poner el nodo como activo (`--availability active`)
+
+```
+$ docker node update --availability active nodo2
+```
+
+El nodo ahora podrá volver a recibir nuevas tareas
+
+## Pruebas de carga
+
+Para comprobar el efecto del número de contenedores sobre el rendimiento haremos un pequeño ejemplo sobre nuestra aplicación sencilla con https://httpd.apache.org/docs/2.4/programs/ab.html[Apache Benchmark]
+
+Número de peticiones atendidas por segundo según número de réplicas (1, 2, 4, 6, 8) y número de nodos (1, 2) (Test hecho con 10.000 peticiones y nivel de concurrencia 100)
+
+[width="100%",options="header,footer"]
+|====================
+|   | 1      | 2      | 4      | 6      | 8
+| 1 | 120.12 | 204.56 | 169.45 | 267.07 | 181.60  
+| 2 | 119.67 | 111.89 | 247.42 | 377.78 | 534.55 
+|====================
+
+## Otras cosas interesantes
+
+### El ecosistema Docker 
+
+image::./DockerEcosystem.png[width=100%]
+
+
+### Uso de HAProxy
+
+```
+docker-compose.yml
+version: '3'
+services:
+  php:
+    image: tutum/apache-php
+    ports:
+      - "80"
+    environment:
+     - SERVICE_PORTS=80 <1>
+    volumes:
+      - ./html:/var/www/html
+    deploy:
+      replicas: 6
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  proxy: <2>
+    image: dockercloud/haproxy
+    depends_on:
+      - php <3>
+    environment:
+      - BALANCE=leastconn <4>
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    networks:
+      - webnet
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+networks:
+  webnet:
+```
+<1> Cambio en la configuración de puertos para usar HAProxy
+<2> Servicio `proxy`
+<3> No crear el servicio `proxy` hasta que no se haya creado el `php`
+<4> Usa la política de balanceo _least connections_ en lugar de la _round robin_ predeterminada
 
 ### Microservicios y contenedores
 
