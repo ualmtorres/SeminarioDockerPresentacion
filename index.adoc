@@ -682,8 +682,9 @@ Para ejecutar Rancher 1.6 con una carpeta local para el almacenamiento de los da
 docker run -d --restart=unless-stopped \
 -p 8080:8080 \
 -v `pwd`/rancher16_data:/var/lib/mysql \
-rancher/server
+rancher/server <1>
 ```
+<1> `rancher/server` es el nombre de la imagen de Rancher 1.6, mientras que `rancher/rancher` es el nombre de la imagen de Rancher 2.0
 
 .Catálogo de imágenes de Rancher 1.6
 image::./Rancher16.png[]
@@ -702,7 +703,10 @@ Herramientas que nos ayudan en las tareas de:
 * Aprovisionamiento de hosts
 * Instanciación de contenedores
 * Sustitución de contenedores erróneos
+* _Service discovery_
 * Escalado aumentando o disminuyendo el número de contenedores
+* Configuración de red
+* Balanceo de carga
 
 ### Orquestadores de contenedores más populares
 
@@ -1212,6 +1216,21 @@ El nodo ahora podrá volver a recibir nuevas tareas
 Kubernetes se ha convertido en el estándar para orquestación de contenedores. La mayoría de los proveedores cloud lo ofrece con infraestructura estándar. 
 
 https://rancher.com/[Rancher 2.0] nos ofrece una plataforma on-premise para hacer despliegues de clusters de Kubernetes en proveedores cloud como Amazon EKS, Google Container Engine, Azure Container Service,  Amazon EC2, Microsoft Azure, Digital Ocean, OpenStack, RackSpace y demás,
+
+[NOTE]
+====
+https://rancher.com/rancher-os/[RancherOS] es una distribución de Linux rápida y ligera optimizada para usarse con contenedores. Incluye el software mínimo para ejecutar Docker.
+====
+
+Para ejecutar Rancher 2.0 con una carpeta local para el almacenamiento de los datos de Rancher ejecutaríamos el comando siguiente
+
+```bash
+docker run -d --restart=unless-stopped \
+-p 9000:9000 \
+-v `pwd`/rancher16_data:/var/lib/mysql \
+rancher/rancher <1>
+```
+<1> `rancher/rancher` es el nombre de la imagen de Rancher 2.0, mientras que `rancher/server` es el nombre de la imagen de Rancher 1.6
 
 .Elección de OpenStack como infraestrucutra para despligue de un cluster de contenedores
 image::./Rancher20.png[]

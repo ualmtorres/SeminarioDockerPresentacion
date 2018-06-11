@@ -1674,8 +1674,16 @@ portainer/portainer</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">docker run -d --restart=unless-stopped \
 -p 8080:8080 \
 -v `pwd`/rancher16_data:/var/lib/mysql \
-rancher/server</code></pre>
+rancher/server <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>rancher/server</code> es el nombre de la imagen de Rancher 1.6, mientras que <code>rancher/rancher</code> es el nombre de la imagen de Rancher 2.0</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1722,7 +1730,16 @@ rancher/server</code></pre>
 <p>Sustitución de contenedores erróneos</p>
 </li>
 <li>
+<p><em>Service discovery</em></p>
+</li>
+<li>
 <p>Escalado aumentando o disminuyendo el número de contenedores</p>
+</li>
+<li>
+<p>Configuración de red</p>
+</li>
+<li>
+<p>Balanceo de carga</p>
 </li>
 </ul>
 </div>
@@ -2462,6 +2479,39 @@ zqb89jdjraz7        my_app_php.2        tutum/apache-php:latest   nodo1         
 <div class="paragraph">
 <p><a href="https://rancher.com/">Rancher 2.0</a> nos ofrece una plataforma on-premise para hacer despliegues de clusters de Kubernetes en proveedores cloud como Amazon EKS, Google Container Engine, Azure Container Service,  Amazon EC2, Microsoft Azure, Digital Ocean, OpenStack, RackSpace y demás,</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="https://rancher.com/rancher-os/">RancherOS</a> es una distribución de Linux rápida y ligera optimizada para usarse con contenedores. Incluye el software mínimo para ejecutar Docker.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Para ejecutar Rancher 2.0 con una carpeta local para el almacenamiento de los datos de Rancher ejecutaríamos el comando siguiente</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">docker run -d --restart=unless-stopped \
+-p 9000:9000 \
+-v `pwd`/rancher16_data:/var/lib/mysql \
+rancher/rancher <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>rancher/rancher</code> es el nombre de la imagen de Rancher 2.0, mientras que <code>rancher/server</code> es el nombre de la imagen de Rancher 1.6</td>
+</tr>
+</table>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="./images/Rancher20.png" alt="Rancher20.png">
@@ -2645,7 +2695,7 @@ export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-10 11:14:59 CEST
+Last updated 2018-06-11 06:16:48 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
