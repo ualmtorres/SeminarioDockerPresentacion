@@ -454,10 +454,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#truecreaci-n-de-im-genes-propias">3. Creación de imágenes propias</a>
 <ul class="sectlevel2">
 <li><a href="#trueel-code-dockerfile-code">3.1. El <code>Dockerfile</code></a></li>
-<li><a href="#trueejemplo-de-contenedor-para-aplicaciones-web-en-php">3.2. Ejemplo de contenedor para aplicaciones web en PHP</a></li>
-<li><a href="#trueejemplo-de-contenedor-con-volumen-externo">3.3. Ejemplo de contenedor con volumen externo</a></li>
-<li><a href="#truedescarga-y-subida-de-im-genes-a-docker-hub">3.4. Descarga y subida de imágenes a Docker Hub</a></li>
-<li><a href="#trueresumen-de-comandos-b-sicos-para-im-genes">3.5. Resumen de comandos básicos para imágenes</a></li>
+<li><a href="#trueim-genes">3.2. Imágenes</a></li>
+<li><a href="#trueejemplo-de-contenedor-para-aplicaciones-web-en-php">3.3. Ejemplo de contenedor para aplicaciones web en PHP</a></li>
+<li><a href="#trueejemplo-de-contenedor-con-volumen-externo">3.4. Ejemplo de contenedor con volumen externo</a></li>
+<li><a href="#truedescarga-y-subida-de-im-genes-a-docker-hub">3.5. Descarga y subida de imágenes a Docker Hub</a></li>
+<li><a href="#trueresumen-de-comandos-b-sicos-para-im-genes">3.6. Resumen de comandos básicos para imágenes</a></li>
 </ul>
 </li>
 <li><a href="#trueaplicaciones-con-varios-contenedores">4. Aplicaciones con varios contenedores</a>
@@ -495,10 +496,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#truecreaci-n-de-clusters-kubernetes-con-rancher-2-0">9. Creación de clusters Kubernetes con Rancher 2.0</a></li>
 <li><a href="#trueotras-cosas-interesantes">10. Otras cosas interesantes</a>
 <ul class="sectlevel2">
-<li><a href="#trueel-ecosistema-docker">10.1. El ecosistema Docker</a></li>
-<li><a href="#trueuso-de-haproxy">10.2. Uso de HAProxy</a></li>
-<li><a href="#truemicroservicios-y-contenedores">10.3. Microservicios y contenedores</a></li>
+<li><a href="#truemicroservicios-y-contenedores">10.1. Microservicios y contenedores</a></li>
+<li><a href="#trueel-ecosistema-docker">10.2. El ecosistema Docker</a></li>
+<li><a href="#trueinstalar-un-registro-de-im-genes-propio">10.3. Instalar un registro de imágenes propio</a></li>
 <li><a href="#trueconexi-n-a-daemons-docker-remotos">10.4. Conexión a daemons Docker remotos</a></li>
+<li><a href="#trueuso-de-haproxy">10.5. Uso de HAProxy</a></li>
 </ul>
 </li>
 </ul>
@@ -1232,10 +1234,34 @@ VOLUME /data <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Crea un punto de montaje en el contenedor. A la hora de crearlo le haremos corresponder normalmente un directorio del host
-<mark>#</mark> Imágenes</td>
+<td>Crea un punto de montaje en el contenedor. A la hora de crearlo le haremos corresponder normalmente un directorio del host</td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trueim-genes"><a class="anchor" href="#trueim-genes"></a>3.2. Imágenes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Se construyen con <code>docker build</code> a partir de un <code>Dockerfile</code></p>
+</li>
+<li>
+<p>Se crean en un contexto (normalmente añadiendo archivos del directorio de trabajo del host a la imagen -p.e. el código fuente de la aplicación)</p>
+</li>
+<li>
+<p>Con <code>FROM</code> (normalmente primera instrucción del <code>Dockerfile</code>) inicializamos el sistema de archivos de la imagen (p.e. si es ubuntu obtenemos el sistema de archivos de Ubuntu)</p>
+</li>
+<li>
+<p>Muchas imágenes disponibles en Docker Hub usan Alpine (una distribución ligera de Linux) en lugar de Ubuntu, Fedora o CentOS, debido a su menor tamaño</p>
+</li>
+<li>
+<p>Cada instrucción del <code>Dockerfile</code> genera una nueva capa (con la diferencia) en ese sistema de archivos</p>
+</li>
+<li>
+<p>Al hacer <code>build</code> las capas existentes en el registro local no se vuelven a crear</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1253,7 +1279,7 @@ VOLUME /data <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueejemplo-de-contenedor-para-aplicaciones-web-en-php"><a class="anchor" href="#trueejemplo-de-contenedor-para-aplicaciones-web-en-php"></a>3.2. Ejemplo de contenedor para aplicaciones web en PHP</h3>
+<h3 id="trueejemplo-de-contenedor-para-aplicaciones-web-en-php"><a class="anchor" href="#trueejemplo-de-contenedor-para-aplicaciones-web-en-php"></a>3.3. Ejemplo de contenedor para aplicaciones web en PHP</h3>
 <div class="paragraph">
 <p>Vamos a construir un contenedor que incluya de forma estática una aplicación (p.e. la última versión de la aplicación). El proceso a seguir es:</p>
 </div>
@@ -1309,7 +1335,7 @@ EXPOSE 80</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="trueconstrucci-n-de-la-imagen"><a class="anchor" href="#trueconstrucci-n-de-la-imagen"></a>3.2.1. Construcción de la imagen.</h4>
+<h4 id="trueconstrucci-n-de-la-imagen"><a class="anchor" href="#trueconstrucci-n-de-la-imagen"></a>3.3.1. Construcción de la imagen.</h4>
 <div class="paragraph">
 <p><code>$ docker build -t pruebaphp .</code></p>
 </div>
@@ -1318,7 +1344,7 @@ EXPOSE 80</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="truelistado-de-im-genes-locales"><a class="anchor" href="#truelistado-de-im-genes-locales"></a>3.2.2. Listado de imágenes locales</h4>
+<h4 id="truelistado-de-im-genes-locales"><a class="anchor" href="#truelistado-de-im-genes-locales"></a>3.3.2. Listado de imágenes locales</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker image ls
@@ -1328,7 +1354,7 @@ pruebaphp              latest              152781e32617        14 hours ago     
 </div>
 </div>
 <div class="sect3">
-<h4 id="truecreaci-n-de-un-contenedor-a-partir-de-la-imagen"><a class="anchor" href="#truecreaci-n-de-un-contenedor-a-partir-de-la-imagen"></a>3.2.3. Creación de un contenedor a partir de la imagen</h4>
+<h4 id="truecreaci-n-de-un-contenedor-a-partir-de-la-imagen"><a class="anchor" href="#truecreaci-n-de-un-contenedor-a-partir-de-la-imagen"></a>3.3.3. Creación de un contenedor a partir de la imagen</h4>
 <div class="paragraph">
 <p><code>$ docker run -d -p 83:80 pruebaphp</code></p>
 </div>
@@ -1352,7 +1378,7 @@ pruebaphp              latest              152781e32617        14 hours ago     
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueejemplo-de-contenedor-con-volumen-externo"><a class="anchor" href="#trueejemplo-de-contenedor-con-volumen-externo"></a>3.3. Ejemplo de contenedor con volumen externo</h3>
+<h3 id="trueejemplo-de-contenedor-con-volumen-externo"><a class="anchor" href="#trueejemplo-de-contenedor-con-volumen-externo"></a>3.4. Ejemplo de contenedor con volumen externo</h3>
 <div class="paragraph">
 <p>En este ejemplo la aplicación la tendremos aparte en un volumen externo accesible por el contenedor. De esta forma, si nuestra aplicación está vinculada a un repositorio, la actualización de la aplicación se realiza descargando la última versión del repositorio, manteniendo intacto el contenedor.</p>
 </div>
@@ -1407,7 +1433,7 @@ EXPOSE 80</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="truedescarga-y-subida-de-im-genes-a-docker-hub"><a class="anchor" href="#truedescarga-y-subida-de-im-genes-a-docker-hub"></a>3.4. Descarga y subida de imágenes a Docker Hub</h3>
+<h3 id="truedescarga-y-subida-de-im-genes-a-docker-hub"><a class="anchor" href="#truedescarga-y-subida-de-im-genes-a-docker-hub"></a>3.5. Descarga y subida de imágenes a Docker Hub</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1453,7 +1479,7 @@ $ docker run -d -p 80:80 --name my_wordpress wordpress</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueresumen-de-comandos-b-sicos-para-im-genes"><a class="anchor" href="#trueresumen-de-comandos-b-sicos-para-im-genes"></a>3.5. Resumen de comandos básicos para imágenes</h3>
+<h3 id="trueresumen-de-comandos-b-sicos-para-im-genes"><a class="anchor" href="#trueresumen-de-comandos-b-sicos-para-im-genes"></a>3.6. Resumen de comandos básicos para imágenes</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker login
@@ -2524,7 +2550,60 @@ rancher/rancher <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 <h2 id="trueotras-cosas-interesantes"><a class="anchor" href="#trueotras-cosas-interesantes"></a>10. Otras cosas interesantes</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="trueel-ecosistema-docker"><a class="anchor" href="#trueel-ecosistema-docker"></a>10.1. El ecosistema Docker</h3>
+<h3 id="truemicroservicios-y-contenedores"><a class="anchor" href="#truemicroservicios-y-contenedores"></a>10.1. Microservicios y contenedores</h3>
+<div class="paragraph">
+<p>Con microservicios:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Establecemos un contrato, normalmente mediante una API REST, versionada para no romper funcionalidad a usuarios anteriores</p>
+</li>
+<li>
+<p>Ocupan un tamaño reducido y suelen realizar una tarea muy concreta</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Autenticación,</p>
+</li>
+<li>
+<p>API REST. Toda la API vs cada endpoint</p>
+</li>
+<li>
+<p>Estadísticas consumo de recursos</p>
+</li>
+<li>
+<p>Exportar salida a central de logs</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Dockerizar con cabeza</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Comenzamos pasando todo nuestro sistema o MV a un contenedor Docker. Con sólo eso ya conseguimos ejecutar nuestra sistema en distintas máquinas con distintos SO y configuraciones.</p>
+</li>
+<li>
+<p>No intentar pasar de una vez de aplicación monlítica a microservicios diminutos</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/KeepCalmAndUseDocker.png" alt="KeepCalmAndUseDocker.png" width="100%">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trueel-ecosistema-docker"><a class="anchor" href="#trueel-ecosistema-docker"></a>10.2. El ecosistema Docker</h3>
 <div class="imageblock">
 <div class="content">
 <img src="./images/DockerEcosystem.png" alt="DockerEcosystem.png" width="100%">
@@ -2532,7 +2611,89 @@ rancher/rancher <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueuso-de-haproxy"><a class="anchor" href="#trueuso-de-haproxy"></a>10.2. Uso de HAProxy</h3>
+<h3 id="trueinstalar-un-registro-de-im-genes-propio"><a class="anchor" href="#trueinstalar-un-registro-de-im-genes-propio"></a>10.3. Instalar un registro de imágenes propio</h3>
+<div class="paragraph">
+<p>Es posible tener un registro propio para imágenes por cuestiones de seguridad y confidencialidad. Veamos cómo crear un registro propio mediante contenedores (uno para el registro en sí y otro cono Web UI).</p>
+</div>
+<div class="paragraph">
+<p>El ejemplo será obtener una imagen Alpine de Docker Hub y subirla a nuestro propio registro</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">// En el servidor (p.e. 192.168.65.103)
+$ docker run -d -p 5000:5000 --restart always --name registry registry:2
+$ docker run \
+  -d \
+  -e ENV_DOCKER_REGISTRY_HOST=192.168.65.103 \
+  -e ENV_DOCKER_REGISTRY_PORT=5000 \
+  -p 8080:80 \
+  konradkleine/docker-registry-frontend:v2
+
+// En nuestro equipo
+$ docker pull alpine <i class="conum" data-value="1"></i><b>(1)</b>
+$ docker image list | grep alpine <i class="conum" data-value="2"></i><b>(2)</b>
+$ docker tag 3e640a41799a 192.168.65.103:5000/alpine <i class="conum" data-value="3"></i><b>(3)</b>
+$ docker push 192.168.65.103:5000/alpine <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Descargar una imagen de prueba de Alpine al registro local</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Obtener el identificador de la imagen Alpine descargada (p.e. <code>3e640a41799a</code>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>La imagen se etiqueta añadiéndole como prefijo host:puerto de nuestro registro</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Subida de la imagen al registro</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/RegistroPropio.png" alt="RegistroPropio.png">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trueconexi-n-a-daemons-docker-remotos"><a class="anchor" href="#trueconexi-n-a-daemons-docker-remotos"></a>10.4. Conexión a daemons Docker remotos</h3>
+<div class="paragraph">
+<p>Util para conectarnos desde nuestro equipo al Docker de producción o al de  pruebas</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Crear en local un archivo de variables de entorno (p.e. <code>DockerProyectoBrainstorm.sh</code>)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">export DOCKER_TLS_VERIFY=1
+export DOCKER_CERT_PATH="&lt;ruta completa de certificado&gt;"
+export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Después, <code>source DockerProyectoBrainstorm.sh</code> y ¡¡Estamos conectados!!</p>
+</li>
+<li>
+<p>Si la conexión fuera abierta, indicaríamos <code>export DOCKER_TLS_VERIFY=0</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="trueuso-de-haproxy"><a class="anchor" href="#trueuso-de-haproxy"></a>10.5. Uso de HAProxy</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code>docker-compose.yml
@@ -2607,95 +2768,12 @@ networks:
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="truemicroservicios-y-contenedores"><a class="anchor" href="#truemicroservicios-y-contenedores"></a>10.3. Microservicios y contenedores</h3>
-<div class="paragraph">
-<p>Con microservicios:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Establecemos un contrato, normalmente mediante una API REST, versionada para no romper funcionalidad a usuarios anteriores</p>
-</li>
-<li>
-<p>Ocupan un tamaño reducido y suelen realizar una tarea muy concreta</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Autenticación,</p>
-</li>
-<li>
-<p>API REST. Toda la API vs cada endpoint</p>
-</li>
-<li>
-<p>Estadísticas consumo de recursos</p>
-</li>
-<li>
-<p>Exportar salida a central de logs</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Dockerizar con cabeza</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Comenzamos pasando todo nuestro sistema o MV a un contenedor Docker. Con sólo eso ya conseguimos ejecutar nuestra sistema en distintas máquinas con distintos SO y configuraciones.</p>
-</li>
-<li>
-<p>No intentar pasar de una vez de aplicación monlítica a microservicios diminutos</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/KeepCalmAndUseDocker.png" alt="KeepCalmAndUseDocker.png" width="100%">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="trueconexi-n-a-daemons-docker-remotos"><a class="anchor" href="#trueconexi-n-a-daemons-docker-remotos"></a>10.4. Conexión a daemons Docker remotos</h3>
-<div class="paragraph">
-<p>Util para conectarnos desde nuestro equipo al Docker de producción o al de  pruebas</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Crear en local un archivo de variables de entorno (p.e. <code>DockerProyectoBrainstorm.sh</code>)</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">export DOCKER_TLS_VERIFY=1
-export DOCKER_CERT_PATH="&lt;ruta completa de certificado&gt;"
-export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Después, <code>source DockerProyectoBrainstorm.sh</code> y ¡¡Estamos conectados!!</p>
-</li>
-<li>
-<p>Si la conexión fuera abierta, indicaríamos <code>export DOCKER_TLS_VERIFY=0</code>.</p>
-</li>
-</ul>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-11 06:16:48 CEST
+Last updated 2018-06-12 15:22:06 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

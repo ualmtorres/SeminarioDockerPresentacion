@@ -422,6 +422,7 @@ EXPOSE 80
 VOLUME /data <1>
 ```
 <1> Crea un punto de montaje en el contenedor. A la hora de crearlo le haremos corresponder normalmente un directorio del host 
+
 ### Imágenes
 
 * Se construyen con `docker build` a partir de un `Dockerfile`
@@ -1237,10 +1238,70 @@ image::./Rancher20.png[]
 
 ## Otras cosas interesantes
 
+### Microservicios y contenedores
+
+Con microservicios: 
+
+* Establecemos un contrato, normalmente mediante una API REST, versionada para no romper funcionalidad a usuarios anteriores
+* Ocupan un tamaño reducido y suelen realizar una tarea muy concreta
+    - Autenticación, 
+    - API REST. Toda la API vs cada endpoint
+    - Estadísticas consumo de recursos
+    - Exportar salida a central de logs
+    - ...
+* Dockerizar con cabeza
+    - Comenzamos pasando todo nuestro sistema o MV a un contenedor Docker. Con sólo eso ya conseguimos ejecutar nuestra sistema en distintas máquinas con distintos SO y configuraciones. 
+    - No intentar pasar de una vez de aplicación monlítica a microservicios diminutos
+
+image::./KeepCalmAndUseDocker.png[width=100%]
+
 ### El ecosistema Docker 
 
 image::./DockerEcosystem.png[width=100%]
 
+### Instalar un registro de imágenes propio
+
+Es posible tener un registro propio para imágenes por cuestiones de seguridad y confidencialidad. Veamos cómo crear un registro propio mediante contenedores (uno para el registro en sí y otro cono Web UI).
+
+El ejemplo será obtener una imagen Alpine de Docker Hub y subirla a nuestro propio registro
+
+```bash
+// En el servidor (p.e. 192.168.65.103)
+$ docker run -d -p 5000:5000 --restart always --name registry registry:2
+$ docker run \
+  -d \
+  -e ENV_DOCKER_REGISTRY_HOST=192.168.65.103 \
+  -e ENV_DOCKER_REGISTRY_PORT=5000 \
+  -p 8080:80 \
+  konradkleine/docker-registry-frontend:v2
+  
+// En nuestro equipo
+$ docker pull alpine <1>
+$ docker image list | grep alpine <2> 
+$ docker tag 3e640a41799a 192.168.65.103:5000/alpine <3>
+$ docker push 192.168.65.103:5000/alpine <4>
+```
+<1> Descargar una imagen de prueba de Alpine al registro local
+<2> Obtener el identificador de la imagen Alpine descargada (p.e. `3e640a41799a`)
+<3> La imagen se etiqueta añadiéndole como prefijo host:puerto de nuestro registro
+<4> Subida de la imagen al registro
+
+image::./RegistroPropio.png[]
+
+### Conexión a daemons Docker remotos
+
+Util para conectarnos desde nuestro equipo al Docker de producción o al de  pruebas
+
+* Crear en local un archivo de variables de entorno (p.e. `DockerProyectoBrainstorm.sh`)
+
+```bash
+export DOCKER_TLS_VERIFY=1
+export DOCKER_CERT_PATH="<ruta completa de certificado>"
+export DOCKER_HOST="tcp://<IP o nombre DNS>:443"
+```
+
+* Después, `source DockerProyectoBrainstorm.sh` y ¡¡Estamos conectados!!
+* Si la conexión fuera abierta, indicaríamos `export DOCKER_TLS_VERIFY=0`. 
 
 ### Uso de HAProxy
 
@@ -1299,39 +1360,3 @@ networks:
 <2> Servicio `proxy`
 <3> No crear el servicio `proxy` hasta que no se haya creado el `php`
 <4> Usa la política de balanceo _least connections_ en lugar de la _round robin_ predeterminada
-
-### Microservicios y contenedores
-
-Con microservicios: 
-
-* Establecemos un contrato, normalmente mediante una API REST, versionada para no romper funcionalidad a usuarios anteriores
-* Ocupan un tamaño reducido y suelen realizar una tarea muy concreta
-    - Autenticación, 
-    - API REST. Toda la API vs cada endpoint
-    - Estadísticas consumo de recursos
-    - Exportar salida a central de logs
-    - ...
-* Dockerizar con cabeza
-    - Comenzamos pasando todo nuestro sistema o MV a un contenedor Docker. Con sólo eso ya conseguimos ejecutar nuestra sistema en distintas máquinas con distintos SO y configuraciones. 
-    - No intentar pasar de una vez de aplicación monlítica a microservicios diminutos
-
-image::./KeepCalmAndUseDocker.png[width=100%]
-
-### Conexión a daemons Docker remotos
-
-Util para conectarnos desde nuestro equipo al Docker de producción o al de  pruebas
-
-* Crear en local un archivo de variables de entorno (p.e. `DockerProyectoBrainstorm.sh`)
-
-```bash
-export DOCKER_TLS_VERIFY=1
-export DOCKER_CERT_PATH="<ruta completa de certificado>"
-export DOCKER_HOST="tcp://<IP o nombre DNS>:443"
-```
-
-* Después, `source DockerProyectoBrainstorm.sh` y ¡¡Estamos conectados!!
-* Si la conexión fuera abierta, indicaríamos `export DOCKER_TLS_VERIFY=0`. 
-
- 
-
-
