@@ -454,7 +454,7 @@ A partir de una carpeta nueva crearemos lo siguiente:
 El `Dockerfile`
 
 ```
-FROM tutum/apache-php
+FROM ualmtorres/phalcon-apache-ubuntu
 
 ADD html /var/www/html
 
@@ -506,7 +506,7 @@ La forma de usar volúmenes con `Dockerfile` consiste en:
 El `Dockerfile`
 
 ```
-FROM tutum/apache-php
+FROM ualmtorres/phalcon-apache-ubuntu
 
 VOLUME /var/www/html
 
@@ -620,7 +620,7 @@ services:
   php:
     container_name: my_php
     restart: always
-    image: tutum/apache-php
+    image: ualmtorres/phalcon-apache-ubuntu
     ports:
       - "80:80"
     volumes:
@@ -790,7 +790,7 @@ Ejemplo de `docker-compose.yml`
 version: '3'
 services:
   php:
-    image: tutum/apache-php
+    image: ualmtorres/phalcon-apache-ubuntu
     ports:
       - "80:80"
     volumes:
@@ -863,7 +863,7 @@ Con `docker service ls` vemos los distintos servicios y la cantidad y estado de 
 ```bash
 $ docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE                             PORTS
-l6gwxu4asxb9        my_app_php          replicated          3/3                 tutum/apache-php:latest           *:80->80/tcp
+l6gwxu4asxb9        my_app_php          replicated          3/3                 ualmtorres/phalcon-apache-ubuntu:latest           *:80->80/tcp
 27l66joutbnd        my_app_visualizer   replicated          1/1                 dockersamples/visualizer:stable   *:8080->8080/tcp
 ```
 
@@ -873,9 +873,9 @@ Con `docker stack ps my_app` vemos el estado de cada una de las tareas (contened
 $ docker stack ps my_app
 ID                  NAME                  IMAGE                             NODE                    DESIRED STATE       CURRENT STATE            ERROR               PORTS
 0kc4fcw7bmva        my_app_visualizer.1   dockersamples/visualizer:stable   linuxkit-025000000001   Running             Running 6 minutes ago                       
-ueb5qs8kb0u6        my_app_php.1          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago                       
-uejgm1a4035i        my_app_php.2          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago                       
-nb0cbp5jhail        my_app_php.3          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago         
+ueb5qs8kb0u6        my_app_php.1          ualmtorres/phalcon-apache-ubuntu:latest           linuxkit-025000000001   Running             Running 6 minutes ago                       
+uejgm1a4035i        my_app_php.2          ualmtorres/phalcon-apache-ubuntu:latest           linuxkit-025000000001   Running             Running 6 minutes ago                       
+nb0cbp5jhail        my_app_php.3          ualmtorres/phalcon-apache-ubuntu:latest           linuxkit-025000000001   Running             Running 6 minutes ago         
 ```
 
 ### Recuperación automática ante errores (_Self-healing_)
@@ -888,9 +888,9 @@ Primero mostramos los contenedores actuales
 $ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
 ef0248683123        dockersamples/visualizer:stable   "npm start"         12 minutes ago      Up 12 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
-4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
-0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
-06a6011f4407        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.3.nb0cbp5jhailiu3ee2bbvkbr7
+4be7ebee6e84        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
+06a6011f4407        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.3.nb0cbp5jhailiu3ee2bbvkbr7
 ```
 
 Ahora lanzamos un `kill` sobre el tercer contenedor `06a6011f4407`
@@ -904,10 +904,10 @@ Tras unos instantes habrá un nuevo contenedor en su puesto
 ```
 $ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
-847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           5 seconds ago       Up 4 seconds        80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+847cf3ae0a1c        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           5 seconds ago       Up 4 seconds        80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
 ef0248683123        dockersamples/visualizer:stable   "npm start"         14 minutes ago      Up 14 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
-4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
-0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
+4be7ebee6e84        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
 ```
 
 
@@ -939,14 +939,14 @@ verify: Service converged
 
 $ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
-81d00cc913c9        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.7.tjknquh9jkj8bey90pisul2fw
-0f9d8ba7b254        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
-226c60af9984        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 45 seconds       80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
-e98b5194787b        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 42 seconds       80/tcp              my_app_php.6.je2gqb380r3f6hcb6w9sd081q
-847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           11 minutes ago      Up 11 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+81d00cc913c9        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.7.tjknquh9jkj8bey90pisul2fw
+0f9d8ba7b254        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
+226c60af9984        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           42 seconds ago      Up 45 seconds       80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
+e98b5194787b        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           42 seconds ago      Up 42 seconds       80/tcp              my_app_php.6.je2gqb380r3f6hcb6w9sd081q
+847cf3ae0a1c        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           11 minutes ago      Up 11 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
 ef0248683123        dockersamples/visualizer:stable   "npm start"         25 minutes ago      Up 25 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
-4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
-0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
+4be7ebee6e84        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
 ```
 
 
@@ -961,12 +961,12 @@ Por ejemplo, probemos a reducir a 5 el número de réplicas. Con `docker stack p
 ```bash
 $ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
-0f9d8ba7b254        tutum/apache-php:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
-226c60af9984        tutum/apache-php:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
-847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           13 minutes ago      Up 13 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+0f9d8ba7b254        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
+226c60af9984        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
+847cf3ae0a1c        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           13 minutes ago      Up 13 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
 ef0248683123        dockersamples/visualizer:stable   "npm start"         27 minutes ago      Up 27 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
-4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
-0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
+4be7ebee6e84        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
 ```
 
 [TIP]
@@ -1133,7 +1133,7 @@ zgc0e50822qabzlfceclrso6c     nodo2               Ready               Active    
 version: '3'
 services:
   php:
-    image: tutum/apache-php
+    image: ualmtorres/phalcon-apache-ubuntu
     ports:
       - "80:80"
     volumes:
@@ -1177,10 +1177,10 @@ Haremos esta operación directamente desde el nodo _manager_, aunque se podría 
 ```
 $ docker service ps my_app_php
 ID                  NAME                IMAGE                     NODE                DESIRED STATE       CURRENT STATE         ERROR                              PORTS
-phqzhyvrn2cs        my_app_php.1        tutum/apache-php:latest   nodo1               Running             Running 5 days ago                                       
-7tcammel94a8        my_app_php.2        tutum/apache-php:latest   nodo2               Running             Running 5 days ago                                       
-5y969fj92o5g        my_app_php.3        tutum/apache-php:latest   nodo1               Running             Running 5 days ago                                       
-m7cjujgg08bw        my_app_php.4        tutum/apache-php:latest   nodo2               Running             Running 5 days ago          
+phqzhyvrn2cs        my_app_php.1        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Running 5 days ago                                       
+7tcammel94a8        my_app_php.2        ualmtorres/phalcon-apache-ubuntu:latest   nodo2               Running             Running 5 days ago                                       
+5y969fj92o5g        my_app_php.3        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Running 5 days ago                                       
+m7cjujgg08bw        my_app_php.4        ualmtorres/phalcon-apache-ubuntu:latest   nodo2               Running             Running 5 days ago          
 ```
 
 haremos la operación `drain` para desalojar el `nodo2`
@@ -1194,10 +1194,10 @@ Al comprobar el estado del servicio veremos que ahora todos los contenedores han
 ```
 $ docker service ps my_app_php
 ID                  NAME                IMAGE                     NODE                DESIRED STATE       CURRENT STATE            ERROR                              PORTS
-phqzhyvrn2cs        my_app_php.1        tutum/apache-php:latest   nodo1               Running             Running 5 days ago                                          
-zqb89jdjraz7        my_app_php.2        tutum/apache-php:latest   nodo1               Running             Starting 2 seconds ago                                      
-5y969fj92o5g        my_app_php.3        tutum/apache-php:latest   nodo1               Running             Running 5 days ago                                          
-6q9955ce8fdw        my_app_php.4        tutum/apache-php:latest   nodo1               Running             Starting 3 seconds ago
+phqzhyvrn2cs        my_app_php.1        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Running 5 days ago                                          
+zqb89jdjraz7        my_app_php.2        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Starting 2 seconds ago                                      
+5y969fj92o5g        my_app_php.3        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Running 5 days ago                                          
+6q9955ce8fdw        my_app_php.4        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Starting 3 seconds ago
 ```
 
 Con Visualizer podemos ver de forma más gráfica cómo se ha desalojado el nodo
@@ -1310,7 +1310,7 @@ docker-compose.yml
 version: '3'
 services:
   php:
-    image: tutum/apache-php
+    image: ualmtorres/phalcon-apache-ubuntu
     ports:
       - "80"
     environment:

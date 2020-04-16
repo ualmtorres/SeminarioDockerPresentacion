@@ -646,7 +646,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ git clone https://github.com/ualmtorres/docker_customer_catalog.git
+<pre class="highlight"><code>$ git clone https://github.com/ualmtorres/docker_customer_catalog.git
 $ cd docker_customer_catalog
 $ docker-compose up -d</code></pre>
 </div>
@@ -812,7 +812,7 @@ También permite automatizar la construcción de imágenes y su despliegue con r
 <h3 id="trueel-hola-mundo"><a class="anchor" href="#trueel-hola-mundo"></a>2.3. El Hola mundo</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker --version
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker --version
 Docker version 18.03.1-ce, build 9ee9f40
 
 $ docker run hello-world
@@ -832,7 +832,7 @@ This message shows that your installation appears to be working correctly.
 <h3 id="truecrear-un-contenedor-apache"><a class="anchor" href="#truecrear-un-contenedor-apache"></a>2.4. Crear un contenedor Apache</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 82:80 httpd</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 82:80 httpd</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -938,7 +938,7 @@ This message shows that your installation appears to be working correctly.
 <h4 id="truemostrar-contenedores"><a class="anchor" href="#truemostrar-contenedores"></a>2.7.1. Mostrar contenedores</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago      Up 11 minutes       0.0.0.0:82-&gt;80/tcp       upbeat_stonebraker</code></pre>
 </div>
@@ -965,7 +965,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago      Up 11 minutes       0.0.0.0:82-&gt;80/tcp       upbeat_stonebraker</code></pre>
 </div>
@@ -975,7 +975,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stop d2f73e6acd51</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker stop d2f73e6acd51</code></pre>
 </div>
 </div>
 <div class="admonitionblock caution">
@@ -997,7 +997,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       11 minutes ago 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps -a
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker ps -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                        PORTS                    NAMES
 d2f73e6acd51        httpd               "httpd-foreground"       20 minutes ago      Exited (0) 2 minutes ago                               upbeat_stonebraker</code></pre>
 </div>
@@ -1007,7 +1007,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       20 minutes ago 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker start d2f73e6acd51</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker start d2f73e6acd51</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1015,7 +1015,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       20 minutes ago 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago         Up 10 seconds       0.0.0.0:82-&gt;80/tcp       upbeat_stonebraker</code></pre>
 </div>
@@ -1028,7 +1028,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago    
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stop `docker ps -q`</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker stop `docker ps -q`</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1036,7 +1036,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago    
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker start d2f73e6acd51 9811efbf6e45 178c2d03f2e7</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker start d2f73e6acd51 9811efbf6e45 178c2d03f2e7</code></pre>
 </div>
 </div>
 </div>
@@ -1044,7 +1044,7 @@ d2f73e6acd51        httpd               "httpd-foreground"       9 hours ago    
 <h4 id="trueabrir-un-terminal-en-un-contenedor"><a class="anchor" href="#trueabrir-un-terminal-en-un-contenedor"></a>2.7.3. Abrir un terminal en un contenedor</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker exec -it d2f73e6acd51 bash
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker exec -it d2f73e6acd51 bash
 root@d2f73e6acd51:/usr/local/apache2#</code></pre>
 </div>
 </div>
@@ -1070,7 +1070,7 @@ root@d2f73e6acd51:/usr/local/apache2#</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+<pre class="highlight"><code class="language-bash" data-lang="bash">docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
 docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></pre>
 </div>
 </div>
@@ -1079,7 +1079,7 @@ docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>&lt;!-- Ejemplo de archivo index.html --&gt;
+<pre class="highlight"><code>&lt;!-- Ejemplo de archivo index.html --&gt;
 &lt;html&gt;
   &lt;body&gt;
     &lt;h1&gt;Docker es una maravilla&lt;/h1&gt;
@@ -1092,7 +1092,7 @@ docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker cp index.html d2f73e6acd51:/usr/local/apache2/htdocs/</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker cp index.html d2f73e6acd51:/usr/local/apache2/htdocs/</code></pre>
 </div>
 </div>
 <div class="imageblock">
@@ -1109,7 +1109,7 @@ docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stop d2f73e6acd51
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker stop d2f73e6acd51
 $ docker rm d2f73e6acd51</code></pre>
 </div>
 </div>
@@ -1124,7 +1124,7 @@ $ docker rm d2f73e6acd51</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 82:80 httpd</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 82:80 httpd</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1139,7 +1139,7 @@ $ docker rm d2f73e6acd51</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker rm -f `docker ps -a | grep "wordpress" | awk '{print $1}'`</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker rm -f `docker ps -a | grep "wordpress" | awk '{print $1}'`</code></pre>
 </div>
 </div>
 </td>
@@ -1152,7 +1152,7 @@ $ docker rm d2f73e6acd51</code></pre>
 <h3 id="trueresumen-de-comandos-b-sicos-para-contenedores"><a class="anchor" href="#trueresumen-de-comandos-b-sicos-para-contenedores"></a>2.8. Resumen de comandos básicos para contenedores</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh" data-lang="sh">$ docker info
+<pre class="highlight"><code class="language-sh" data-lang="sh">$ docker info
 $ docker version
 $ docker run &lt;image&gt; // Crea un contenedor a partir de una imagen. Si no tenemos la imagen en local, la descarga
 $ docker run -d -p 82:80 nginx: Crea un contenedor en modo deattached accesible desde el puerto 82
@@ -1194,7 +1194,7 @@ $ docker rm -f `docker ps -a | grep "wordpress" | awk '{print $1}'`: Eliminar to
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code># Use an official Python runtime as a parent image
+<pre class="highlight"><code># Use an official Python runtime as a parent image
 FROM python:2.7-slim
 
 # Set the working directory to /app
@@ -1221,7 +1221,7 @@ CMD ["python", "app.py"]</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>FROM ubuntu:latest
+<pre class="highlight"><code>FROM ubuntu:latest
 RUN apt-get update -y
 RUN apt-get install -y python-pip python-dev
 WORKDIR /app
@@ -1317,7 +1317,7 @@ VOLUME /data <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>FROM tutum/apache-php
+<pre class="highlight"><code>FROM ualmtorres/phalcon-apache-ubuntu
 
 ADD html /var/www/html
 
@@ -1329,7 +1329,7 @@ EXPOSE 80</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>&lt;?php
+<pre class="highlight"><code>&lt;?php
   echo "Hola desde Docker";
 ?&gt;</code></pre>
 </div>
@@ -1347,7 +1347,7 @@ EXPOSE 80</code></pre>
 <h4 id="truelistado-de-im-genes-locales"><a class="anchor" href="#truelistado-de-im-genes-locales"></a>3.3.2. Listado de imágenes locales</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker image ls
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker image ls
 REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
 pruebaphp              latest              152781e32617        14 hours ago        245MB</code></pre>
 </div>
@@ -1400,7 +1400,7 @@ pruebaphp              latest              152781e32617        14 hours ago     
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>FROM tutum/apache-php
+<pre class="highlight"><code>FROM ualmtorres/phalcon-apache-ubuntu
 
 VOLUME /var/www/html
 
@@ -1409,7 +1409,7 @@ EXPOSE 80</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 83:80 -v=/Users/manolo/Documents/Desarrollo/SeminarioDocker/phpsimple/html:/var/www/html pruebaphp</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 83:80 -v=/Users/manolo/Documents/Desarrollo/SeminarioDocker/phpsimple/html:/var/www/html pruebaphp</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1424,7 +1424,7 @@ EXPOSE 80</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 83:80 -v=`pwd`/html:/var/www/html pruebaphp</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker run -d -p 83:80 -v=`pwd`/html:/var/www/html pruebaphp</code></pre>
 </div>
 </div>
 </td>
@@ -1443,7 +1443,7 @@ EXPOSE 80</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker tag phpprueba ualmtorres/phpprueba:v0</code></pre>
+<pre class="highlight"><code>$ docker tag phpprueba ualmtorres/phpprueba:v0</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1455,7 +1455,7 @@ EXPOSE 80</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">docker push &lt;usuario&gt;/&lt;image&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">docker push &lt;usuario&gt;/&lt;image&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1473,7 +1473,7 @@ EXPOSE 80</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker pull wordpress
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker pull wordpress
 $ docker run -d -p 80:80 --name my_wordpress wordpress</code></pre>
 </div>
 </div>
@@ -1482,7 +1482,7 @@ $ docker run -d -p 80:80 --name my_wordpress wordpress</code></pre>
 <h3 id="trueresumen-de-comandos-b-sicos-para-im-genes"><a class="anchor" href="#trueresumen-de-comandos-b-sicos-para-im-genes"></a>3.6. Resumen de comandos básicos para imágenes</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker login
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker login
 $ docker run -d ngninx
 $ docker pull &lt;image&gt;
 $ docker image ls: Lista imágenes locales
@@ -1535,7 +1535,7 @@ $ docker image rm &lt;image&gt;: Elimina una imagen local</code></pre>
 <h3 id="truecomandos-b-sicos-para-docker-compose"><a class="anchor" href="#truecomandos-b-sicos-para-docker-compose"></a>4.2. Comandos básicos para Docker Compose</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh" data-lang="sh">$ docker-compose up -d      Construye y lanza el entorno en modo dettached
+<pre class="highlight"><code class="language-sh" data-lang="sh">$ docker-compose up -d      Construye y lanza el entorno en modo dettached
 $ docker-compose pull       Descarga las imágenes pero no inicia los contenedores
 $ docker-compose rm [-fs]   Borra los contedores parados. Con -fs los detiene y fuerza su borrado</code></pre>
 </div>
@@ -1567,7 +1567,7 @@ $ docker-compose rm [-fs]   Borra los contedores parados. Con -fs los detiene y 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ git clone https://github.com/ualmtorres/customer_catalog.git</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ git clone https://github.com/ualmtorres/customer_catalog.git</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1591,7 +1591,7 @@ $ docker-compose rm [-fs]   Borra los contedores parados. Con -fs los detiene y 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml" data-lang="yaml">version: '2'
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">version: '2'
 services:
   mysql:
     container_name: my_mysql
@@ -1607,7 +1607,7 @@ services:
   php:
     container_name: my_php
     restart: always
-    image: tutum/apache-php
+    image: ualmtorres/phalcon-apache-ubuntu
     ports:
       - "80:80"
     volumes:
@@ -1665,7 +1665,7 @@ services:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">docker run -d \
+<pre class="highlight"><code class="language-bash" data-lang="bash">docker run -d \
 -p 9000:9000 \
 -v "/var/run/docker.sock:/var/run/docker.sock" \
 -v `pwd`/portainer_data:/data portainer/portainer \
@@ -1697,7 +1697,7 @@ portainer/portainer</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">docker run -d --restart=unless-stopped \
+<pre class="highlight"><code class="language-bash" data-lang="bash">docker run -d --restart=unless-stopped \
 -p 8080:8080 \
 -v `pwd`/rancher16_data:/var/lib/mysql \
 rancher/server <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
@@ -1847,7 +1847,7 @@ rancher/server <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker node update --availability drain</code></pre>
+<pre class="highlight"><code>$ docker node update --availability drain</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1894,7 +1894,7 @@ rancher/server <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh" data-lang="sh">$ docker swarm init
+<pre class="highlight"><code class="language-sh" data-lang="sh">$ docker swarm init
 Swarm initialized: current node (uifjsdvl3v1ydv5p7ocif2j13) is now a manager.
 
 To add a worker to this swarm, run the following command:
@@ -1914,7 +1914,7 @@ To add a worker to this swarm, run the following command:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker swarm join-token worker
+<pre class="highlight"><code>$ docker swarm join-token worker
 To add a worker to this swarm, run the following command:
 
     SWMTKN-1-6635wxwy4wun1fvedd3hq27cganpqh28g0zh72ufhrytduewe9-1f6wj5wlzmjyt87ykdoyb1nci 192.168.65.3:2377</code></pre>
@@ -1935,10 +1935,10 @@ To add a worker to this swarm, run the following command:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml" data-lang="yaml">version: '3'
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">version: '3'
 services:
   php:
-    image: tutum/apache-php
+    image: ualmtorres/phalcon-apache-ubuntu
     ports:
       - "80:80"
     volumes:
@@ -1986,7 +1986,7 @@ networks:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>&lt;?php
+<pre class="highlight"><code>&lt;?php
  echo "Contenedor: " . gethostname();
 ?&gt;</code></pre>
 </div>
@@ -2026,7 +2026,7 @@ networks:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stack ls
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker stack ls
 NAME                SERVICES
 my_app              2</code></pre>
 </div>
@@ -2036,9 +2036,9 @@ my_app              2</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker service ls
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE                             PORTS
-l6gwxu4asxb9        my_app_php          replicated          3/3                 tutum/apache-php:latest           *:80-&gt;80/tcp
+l6gwxu4asxb9        my_app_php          replicated          3/3                 ualmtorres/phalcon-apache-ubuntu:latest           *:80-&gt;80/tcp
 27l66joutbnd        my_app_visualizer   replicated          1/1                 dockersamples/visualizer:stable   *:8080-&gt;8080/tcp</code></pre>
 </div>
 </div>
@@ -2047,12 +2047,12 @@ l6gwxu4asxb9        my_app_php          replicated          3/3                 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker stack ps my_app
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker stack ps my_app
 ID                  NAME                  IMAGE                             NODE                    DESIRED STATE       CURRENT STATE            ERROR               PORTS
 0kc4fcw7bmva        my_app_visualizer.1   dockersamples/visualizer:stable   linuxkit-025000000001   Running             Running 6 minutes ago
-ueb5qs8kb0u6        my_app_php.1          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago
-uejgm1a4035i        my_app_php.2          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago
-nb0cbp5jhail        my_app_php.3          tutum/apache-php:latest           linuxkit-025000000001   Running             Running 6 minutes ago</code></pre>
+ueb5qs8kb0u6        my_app_php.1          ualmtorres/phalcon-apache-ubuntu:latest           linuxkit-025000000001   Running             Running 6 minutes ago
+uejgm1a4035i        my_app_php.2          ualmtorres/phalcon-apache-ubuntu:latest           linuxkit-025000000001   Running             Running 6 minutes ago
+nb0cbp5jhail        my_app_php.3          ualmtorres/phalcon-apache-ubuntu:latest           linuxkit-025000000001   Running             Running 6 minutes ago</code></pre>
 </div>
 </div>
 </div>
@@ -2067,12 +2067,12 @@ nb0cbp5jhail        my_app_php.3          tutum/apache-php:latest           linu
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker ps
+<pre class="highlight"><code>$ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
 ef0248683123        dockersamples/visualizer:stable   "npm start"         12 minutes ago      Up 12 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
-4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
-0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
-06a6011f4407        tutum/apache-php:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.3.nb0cbp5jhailiu3ee2bbvkbr7</code></pre>
+4be7ebee6e84        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q
+06a6011f4407        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           12 minutes ago      Up 12 minutes       80/tcp              my_app_php.3.nb0cbp5jhailiu3ee2bbvkbr7</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2080,7 +2080,7 @@ ef0248683123        dockersamples/visualizer:stable   "npm start"         12 min
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker kill 06a6011f4407</code></pre>
+<pre class="highlight"><code>$ docker kill 06a6011f4407</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2088,12 +2088,12 @@ ef0248683123        dockersamples/visualizer:stable   "npm start"         12 min
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker ps
+<pre class="highlight"><code>$ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
-847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           5 seconds ago       Up 4 seconds        80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+847cf3ae0a1c        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           5 seconds ago       Up 4 seconds        80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
 ef0248683123        dockersamples/visualizer:stable   "npm start"         14 minutes ago      Up 14 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
-4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
-0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
+4be7ebee6e84        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           14 minutes ago      Up 14 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
 </div>
 </div>
 </div>
@@ -2115,7 +2115,7 @@ ef0248683123        dockersamples/visualizer:stable   "npm start"         14 min
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker service scale my_app_php=7
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker service scale my_app_php=7
 my_app_php scaled to 7
 overall progress: 7 out of 7 tasks
 1/7: running   [==================================================&gt;]
@@ -2130,14 +2130,14 @@ verify: Service converged
 
 $ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
-81d00cc913c9        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.7.tjknquh9jkj8bey90pisul2fw
-0f9d8ba7b254        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
-226c60af9984        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 45 seconds       80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
-e98b5194787b        tutum/apache-php:latest           "/run.sh"           42 seconds ago      Up 42 seconds       80/tcp              my_app_php.6.je2gqb380r3f6hcb6w9sd081q
-847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           11 minutes ago      Up 11 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+81d00cc913c9        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.7.tjknquh9jkj8bey90pisul2fw
+0f9d8ba7b254        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           42 seconds ago      Up 43 seconds       80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
+226c60af9984        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           42 seconds ago      Up 45 seconds       80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
+e98b5194787b        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           42 seconds ago      Up 42 seconds       80/tcp              my_app_php.6.je2gqb380r3f6hcb6w9sd081q
+847cf3ae0a1c        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           11 minutes ago      Up 11 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
 ef0248683123        dockersamples/visualizer:stable   "npm start"         25 minutes ago      Up 25 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
-4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
-0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
+4be7ebee6e84        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           25 minutes ago      Up 25 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
 </div>
 </div>
 </div>
@@ -2154,14 +2154,14 @@ ef0248683123        dockersamples/visualizer:stable   "npm start"         25 min
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker ps
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker ps
 CONTAINER ID        IMAGE                             COMMAND             CREATED             STATUS              PORTS               NAMES
-0f9d8ba7b254        tutum/apache-php:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
-226c60af9984        tutum/apache-php:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
-847cf3ae0a1c        tutum/apache-php:latest           "/run.sh"           13 minutes ago      Up 13 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
+0f9d8ba7b254        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.5.daf2ni5cefc22zsky8ez7z58w
+226c60af9984        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           2 minutes ago       Up 2 minutes        80/tcp              my_app_php.4.br2nbqhhh9s3x0fwo4d9llgco
+847cf3ae0a1c        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           13 minutes ago      Up 13 minutes       80/tcp              my_app_php.3.2khgab4796zhprb17ku0uj68l
 ef0248683123        dockersamples/visualizer:stable   "npm start"         27 minutes ago      Up 27 minutes       8080/tcp            my_app_visualizer.1.0kc4fcw7bmvale0i9unh2ph2m
-4be7ebee6e84        tutum/apache-php:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
-0b4e540b3ba4        tutum/apache-php:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
+4be7ebee6e84        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.1.ueb5qs8kb0u6538vwtjc3piym
+0b4e540b3ba4        ualmtorres/phalcon-apache-ubuntu:latest           "/run.sh"           27 minutes ago      Up 27 minutes       80/tcp              my_app_php.2.uejgm1a4035iz0bx208mxom9q</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -2202,7 +2202,7 @@ ef0248683123        dockersamples/visualizer:stable   "npm start"         27 min
 <h3 id="trueresumen-de-los-comandos-para-em-swarms-em"><a class="anchor" href="#trueresumen-de-los-comandos-para-em-swarms-em"></a>7.6. Resumen de los comandos para <em>swarms</em></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker swarm init             Inicialización de swarm y del nodo manager
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker swarm init             Inicialización de swarm y del nodo manager
 $ docker stack deploy -c docker-compose.yml &lt;stack&gt; Despliegue de stack
 $ docker stack ls               Lista de stacks y cantidad de servicios que tiene
 $ docker service ls             Listado de servicios y estado de sus réplicas
@@ -2246,7 +2246,7 @@ $ docker swarm leave --force    Salida de un nodo del swarm</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">export OS_USERNAME=mtorres
+<pre class="highlight"><code class="language-bash" data-lang="bash">export OS_USERNAME=mtorres
 export OS_PASSWORD=XXXXXXXXXXXX
 export OS_PROJECT_NAME=mtorres
 export OS_USER_DOMAIN_NAME=Default
@@ -2277,7 +2277,7 @@ export OS_TENANT_NAME=mtorres</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">docker-machine create -d openstack \
+<pre class="highlight"><code class="language-bash" data-lang="bash">docker-machine create -d openstack \
 --openstack-flavor-name small \
 --openstack-image-name "Ubuntu 16.04 LTS" \
 --openstack-domain-name default \
@@ -2295,7 +2295,7 @@ nodo1</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">Running pre-create checks...
+<pre class="highlight"><code class="language-bash" data-lang="bash">Running pre-create checks...
 Creating machine...
 (nodo1) Creating machine...
 Waiting for machine to be running, this may take a few minutes...
@@ -2320,7 +2320,7 @@ To see how to connect your Docker Client to the Docker Engine running on this vi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker-machine ls
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker-machine ls
 NAME    ACTIVE   DRIVER      STATE     URL                         SWARM   DOCKER        ERRORS
 nodo1   -        openstack   Running   tcp://192.168.66.211:2376           v18.05.0-ce
 nodo2   -        openstack   Running   tcp://192.168.66.235:2376           v18.05.0-ce</code></pre>
@@ -2331,7 +2331,7 @@ nodo2   -        openstack   Running   tcp://192.168.66.235:2376           v18.0
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ eval $(docker-machine env nodo1)
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ eval $(docker-machine env nodo1)
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</code></pre>
 </div>
@@ -2343,7 +2343,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 <h4 id="truecreaci-n-del-nodo-em-manager-em"><a class="anchor" href="#truecreaci-n-del-nodo-em-manager-em"></a>8.2.1. Creación del nodo <em>manager</em></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker-machine  ssh nodo1 "sudo docker swarm init --advertise-addr 192.168.66.211"
+<pre class="highlight"><code>$ docker-machine  ssh nodo1 "sudo docker swarm init --advertise-addr 192.168.66.211"
 Swarm initialized: current node (y0831vf8yj3vu120jj3zp8c6k) is now a manager.
 
 To add a worker to this swarm, run the following command:
@@ -2361,7 +2361,7 @@ To add a manager to this swarm, run 'docker swarm join-token manager' and follow
 <h4 id="truecreaci-n-del-nodo-em-worker-em"><a class="anchor" href="#truecreaci-n-del-nodo-em-worker-em"></a>8.2.2. Creación del nodo <em>worker</em></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker-machine ssh nodo2 "sudo docker swarm join --token SWMTKN-1-1j411qkevgcza9uunune32q4p6p4xylyz944uozow0l7shr66t-7ujr8f9i9lti19rz9oqkjh89n 192.168.66.211:2377"
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker-machine ssh nodo2 "sudo docker swarm join --token SWMTKN-1-1j411qkevgcza9uunune32q4p6p4xylyz944uozow0l7shr66t-7ujr8f9i9lti19rz9oqkjh89n 192.168.66.211:2377"
 This node joined a swarm as a worker.</code></pre>
 </div>
 </div>
@@ -2371,7 +2371,7 @@ This node joined a swarm as a worker.</code></pre>
 <h3 id="truecomprobaci-n-del-em-swarm-em-creado"><a class="anchor" href="#truecomprobaci-n-del-em-swarm-em-creado"></a>8.3. Comprobación del <em>swarm</em> creado</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ docker-machine ssh nodo1 "sudo docker node ls"
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ docker-machine ssh nodo1 "sudo docker node ls"
 ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
 y0831vf8yj3vu120jj3zp8c6k *   nodo1               Ready               Active              Leader              18.05.0-ce
 zgc0e50822qabzlfceclrso6c     nodo2               Ready               Active                                  18.05.0-ce</code></pre>
@@ -2392,10 +2392,10 @@ zgc0e50822qabzlfceclrso6c     nodo2               Ready               Active    
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml" data-lang="yaml">version: '3'
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">version: '3'
 services:
   php:
-    image: tutum/apache-php
+    image: ualmtorres/phalcon-apache-ubuntu
     ports:
       - "80:80"
     volumes:
@@ -2445,12 +2445,12 @@ networks:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker service ps my_app_php
+<pre class="highlight"><code>$ docker service ps my_app_php
 ID                  NAME                IMAGE                     NODE                DESIRED STATE       CURRENT STATE         ERROR                              PORTS
-phqzhyvrn2cs        my_app_php.1        tutum/apache-php:latest   nodo1               Running             Running 5 days ago
-7tcammel94a8        my_app_php.2        tutum/apache-php:latest   nodo2               Running             Running 5 days ago
-5y969fj92o5g        my_app_php.3        tutum/apache-php:latest   nodo1               Running             Running 5 days ago
-m7cjujgg08bw        my_app_php.4        tutum/apache-php:latest   nodo2               Running             Running 5 days ago</code></pre>
+phqzhyvrn2cs        my_app_php.1        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Running 5 days ago
+7tcammel94a8        my_app_php.2        ualmtorres/phalcon-apache-ubuntu:latest   nodo2               Running             Running 5 days ago
+5y969fj92o5g        my_app_php.3        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Running 5 days ago
+m7cjujgg08bw        my_app_php.4        ualmtorres/phalcon-apache-ubuntu:latest   nodo2               Running             Running 5 days ago</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2458,7 +2458,7 @@ m7cjujgg08bw        my_app_php.4        tutum/apache-php:latest   nodo2         
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker node update --availability drain nodo2</code></pre>
+<pre class="highlight"><code>$ docker node update --availability drain nodo2</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2466,12 +2466,12 @@ m7cjujgg08bw        my_app_php.4        tutum/apache-php:latest   nodo2         
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker service ps my_app_php
+<pre class="highlight"><code>$ docker service ps my_app_php
 ID                  NAME                IMAGE                     NODE                DESIRED STATE       CURRENT STATE            ERROR                              PORTS
-phqzhyvrn2cs        my_app_php.1        tutum/apache-php:latest   nodo1               Running             Running 5 days ago
-zqb89jdjraz7        my_app_php.2        tutum/apache-php:latest   nodo1               Running             Starting 2 seconds ago
-5y969fj92o5g        my_app_php.3        tutum/apache-php:latest   nodo1               Running             Running 5 days ago
-6q9955ce8fdw        my_app_php.4        tutum/apache-php:latest   nodo1               Running             Starting 3 seconds ago</code></pre>
+phqzhyvrn2cs        my_app_php.1        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Running 5 days ago
+zqb89jdjraz7        my_app_php.2        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Starting 2 seconds ago
+5y969fj92o5g        my_app_php.3        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Running 5 days ago
+6q9955ce8fdw        my_app_php.4        ualmtorres/phalcon-apache-ubuntu:latest   nodo1               Running             Starting 3 seconds ago</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2487,7 +2487,7 @@ zqb89jdjraz7        my_app_php.2        tutum/apache-php:latest   nodo1         
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>$ docker node update --availability active nodo2</code></pre>
+<pre class="highlight"><code>$ docker node update --availability active nodo2</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2524,7 +2524,7 @@ zqb89jdjraz7        my_app_php.2        tutum/apache-php:latest   nodo1         
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">docker run -d --restart=unless-stopped \
+<pre class="highlight"><code class="language-bash" data-lang="bash">docker run -d --restart=unless-stopped \
 -p 9000:9000 \
 -v `pwd`/rancher16_data:/var/lib/mysql \
 rancher/rancher <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
@@ -2620,7 +2620,7 @@ rancher/rancher <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">// En el servidor (p.e. 192.168.65.103)
+<pre class="highlight"><code class="language-bash" data-lang="bash">// En el servidor (p.e. 192.168.65.103)
 $ docker run -d -p 5000:5000 --restart always --name registry registry:2
 $ docker run \
   -d \
@@ -2676,7 +2676,7 @@ $ docker push 192.168.65.103:5000/alpine <i class="conum" data-value="4"></i><b>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">export DOCKER_TLS_VERIFY=1
+<pre class="highlight"><code class="language-bash" data-lang="bash">export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH="&lt;ruta completa de certificado&gt;"
 export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
 </div>
@@ -2696,11 +2696,11 @@ export DOCKER_HOST="tcp://&lt;IP o nombre DNS&gt;:443"</code></pre>
 <h3 id="trueuso-de-haproxy"><a class="anchor" href="#trueuso-de-haproxy"></a>10.5. Uso de HAProxy</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>docker-compose.yml
+<pre class="highlight"><code>docker-compose.yml
 version: '3'
 services:
   php:
-    image: tutum/apache-php
+    image: ualmtorres/phalcon-apache-ubuntu
     ports:
       - "80"
     environment:
@@ -2773,11 +2773,8 @@ networks:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-12 15:22:06 CEST
+Last updated 2020-04-16 07:10:31 CEST
 </div>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
-<script>hljs.initHighlighting()</script>
 </body>
 </html>
